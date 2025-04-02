@@ -1,4 +1,4 @@
-# Quiz Application
+# Quiz Application AN3Ts
 
 ## Team Members
 - Anh Tran: AnnieTran2023 [https://github.com/AnnieTran2023]
@@ -10,6 +10,7 @@
 ## Teacher Dashboard Features
 
 ### Quiz Management
+
 - Add quizzes with:
   - **Name** (e.g., “The Scrum framework”).
   - **Description**.
@@ -19,6 +20,7 @@
 - Edit and delete quizzes.
 
 ### Question Management
+
 - Add multiple-choice questions to a quiz.
 - Each question has:
   - **Content** (e.g., “What is the purpose of the Retrospective event?”).
@@ -27,6 +29,7 @@
 - Delete questions.
 
 ### Answer Option Management
+
 - Add multiple answer options per question.
 - Each answer option has:
   - **Content** (e.g., “Finding ways to improve the process”).
@@ -35,6 +38,7 @@
 - Delete answer options.
 
 ### Category Management
+
 - Add quiz categories (e.g., “Agile”, “Databases”).
 - Each category has:
   - **Name**.
@@ -48,18 +52,20 @@
 ## Student Dashboard Features
 
 ### Taking Quizzes
+
 - View a list of published quizzes.
 - Take a quiz by answering multiple-choice questions.
 - Get immediate feedback after answering a question (correct or incorrect).
 
 ### Viewing Results
+
 - View quiz results including:
   - **Total number of answers**.
   - **Correct answer percentage**.
   - **Number of correct/wrong answers per question**.
 
 ### Quiz Reviews
+
 - Write a review for a quiz.
 - View reviews from other students.
 - Edit and delete own reviews.
-
