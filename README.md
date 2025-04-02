@@ -1,5 +1,12 @@
 # Quiz Application
 
+## Team Members
+- Anh Tran: AnnieTran2023 [https://github.com/AnnieTran2023]
+- Le Do: DozyXYZ [https://github.com/DozyXYZ]
+- Trang Le: TrangLe265 [https://github.com/TrangLe265]
+- Tuong Nguyen: NguyenTuong4017 [https://github.com/NguyenTuong4017]
+
+
 ## Teacher Dashboard Features
 
 ### Quiz Management
