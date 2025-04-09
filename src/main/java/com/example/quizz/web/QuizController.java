@@ -11,11 +11,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-@RequestMapping("/quizzes")
 public class QuizController {
 
     @Autowired
     private QuizRepository quizRepository;
+
+    // return all quizzes in UI view
+    @GetMapping("/quizzes")
+    public String showQuizzeString() {
+        return "quizzes";
+    }
 
     // Serve the Add Quiz form
     @GetMapping("/addquiz")
@@ -23,12 +28,16 @@ public class QuizController {
         return "addquiz";
     }
 
+    
+
+
     // Create a new quiz
     @PostMapping
     public Quiz createQuiz(@RequestBody Quiz quiz) {
         return quizRepository.save(quiz);
     }
 
+    //return json here
     @GetMapping
     public List<Quiz> getQuiz() {
         return quizRepository.findAll();
