@@ -26,6 +26,8 @@ public class Quiz {
     @Pattern(regexp = "^[A-Z0-9]{8,10}$", message = "Course code must be 8-10 characters long and contain only uppercase letters and digits")
     private String courseCode;
 
+    private boolean published;
+
     // Getters and Setters
     public Long getId() {
         return id;
@@ -58,4 +60,13 @@ public class Quiz {
     public void setCourseCode(String courseCode) {
         this.courseCode = courseCode;
     }
+
+    public boolean isPublished() {
+        return published;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
+
 }
