@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
 @Controller
 @RequestMapping("/quizzes")
 public class QuizController {
@@ -34,6 +33,15 @@ public class QuizController {
     public List<Quiz> getQuiz() {
         return quizRepository.findAll();
     }
-    
 
+    @DeleteMapping("/{id}")
+    public String deleteQuiz(@PathVariable Long id) {
+        quizRepository.deleteById(id);
+
+        if (quizRepository.existsById(id)) {
+            return "Delete failed";
+        } else {
+            return "Delete success";
+        }
+    }
 }
