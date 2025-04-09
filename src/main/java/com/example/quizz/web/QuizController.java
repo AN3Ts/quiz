@@ -27,7 +27,7 @@ public class QuizController {
         return quizRepository.findAll();
     }
 
-    @DeleteMapping("/quizzes/'{id}")
+    @DeleteMapping("/{id}")
     public String deleteQuiz(@PathVariable Long id) {
         quizRepository.deleteById(id);
 
