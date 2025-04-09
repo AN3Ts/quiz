@@ -60,13 +60,15 @@
         }
 
         .checkbox-label input {
+            margin-top: 15px;
             margin-right: 10px;
         }
 
         .buttons {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             margin-top: 20px;
+            gap: 15px;
         }
 
         button {
@@ -74,6 +76,7 @@
             color: white;
             border: none;
             cursor: pointer;
+            width: 30%;
         }
 
         button:hover {
@@ -101,12 +104,12 @@
             <input type="text" id="description" name="description" placeholder="Enter quiz description" required>
 
             <label for="course">Course code</label>
-            <input type="text" id="course" name="course" placeholder="Enter course name" pattern="[A-Za-z0-9 ]+"
+            <input type="text" id="course" name="courseCode" placeholder="Enter course code" pattern="[A-Za-z0-9 ]+"
                 title="Only letters, numbers, and spaces are allowed" required>
 
             <div class="checkbox-label">
-                <input type="checkbox" id="status" name="status">
-                <label for="status">Published</label>
+                <input type="checkbox" id="published" name="published">
+                <label for="published">Published</label>
             </div>
 
             <div class="buttons">
