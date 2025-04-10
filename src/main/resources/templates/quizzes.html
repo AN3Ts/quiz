@@ -44,10 +44,8 @@
             <td th:text="${quiz.published} ? 'Yes' : 'No'"></td>
             <td>
               <a
-                th:href="@{/quizzes/{id}(id=${quiz.id})}"
                 class="btn btn-danger"
-                data-bs-toggle="modal"
-                data-bs-target="#deletePopUp"
+                th:attr="data-bs-toggle='modal', data-bs-target='#deletePopUp-' + ${quiz.id}"
                 >Delete</a
               >
               <a
@@ -56,6 +54,43 @@
                 >Edit</a
               >
             </td>
+
+            <!-- Delete Pop-up -->
+            <div
+              class="modal fade"
+              th:id="'deletePopUp-' + ${quiz.id}"
+              tabindex="-1"
+              aria-labelledby="deletePopUpLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="deletePopUpLabel">Warning!</h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure you want to delete
+                    <strong th:text="${quiz.name}"></strong>? <br />
+                    This action cannot be undone.
+                  </div>
+                  <div class="modal-footer">
+                    <a class="btn btn-danger" data-bs-dismiss="modal"> No </a>
+                    <a
+                      class="btn btn-success"
+                      th:href="@{/quizzes/{id}(id=${quiz.id})}"
+                    >
+                      Yes
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </tr>
         </tbody>
       </table>
@@ -75,36 +110,4 @@
     <!-- Add Bootstrap JS (optional, for interactive components) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
-
-  <!-- Delete Pop-up -->
-  <div
-    class="modal fade"
-    id="deletePopUp"
-    tabindex="-1"
-    aria-labelledby="deletePopUpLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deletePopUpLabel">Warning!</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          Are you sure to delete to delete this quiz?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-            No
-          </button>
-          <button type="button" class="btn btn-success">Yes</button>
-        </div>
-      </div>
-    </div>
-  </div>
 </html>
