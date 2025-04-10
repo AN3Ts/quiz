@@ -4,97 +4,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Quiz</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            margin-top: 15px;
-            font-weight: bold;
-            color: #555;
-        }
-
-        input[type="text"],
-        input[type="checkbox"],
-        button {
-            margin-top: 5px;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        input[type="text"]:focus {
-            border-color: #007bff;
-            outline: none;
-        }
-
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            margin-top: 15px;
-        }
-
-        .checkbox-label input {
-            margin-right: 10px;
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .cancel-btn {
-            background-color: #6c757d;
-        }
-
-        .cancel-btn:hover {
-            background-color: #5a6268;
-        }
-    </style>
+    <title>Show All Quizzes</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 
 <body>
-    <div class="container">
-        <h1>Show all quizzes</h1>
-       
+    <div class="container mt-5">
+        <!-- Alert message -->
+        <div th:if="${message}" th:class="'alert alert-' + ${alertType}" role="alert">
+            <span th:text="${message}"></span>
+        </div>
+
+        <!-- Page title -->
+        <h1 class="text-center mb-4">Show All Quizzes</h1>
+
+        <!-- Quizzes table -->
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Course Code</th>
+                    <th scope="col">Published</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="quiz : ${quizzes}">
+                    <td th:text="${quiz.name}"></td>
+                    <td th:text="${quiz.description}"></td>
+                    <td th:text="${quiz.courseCode}"></td>
+                    <td th:text="${quiz.published} ? 'Yes' : 'No'"></td>
+                    <td>
+                        <a th:href="@{/quizzes/{id}(id=${quiz.id})}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Add new quiz button -->
+        <div class="d-flex justify-content-center mt-4">
+            <button type="button" class="btn btn-primary" onclick="window.location.href='/quizzes/addquiz'">Add New Quiz</button>
+        </div>
     </div>
+
+    <!-- Add Bootstrap JS (optional, for interactive components) -->
 </body>
 
 </html>
