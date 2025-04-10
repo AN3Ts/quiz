@@ -1,6 +1,8 @@
 package com.example.quizz.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Question {
@@ -9,12 +11,18 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Question text cannot be blank")
+    @Size(max = 500, message = "Question text must not exceed 500 characters")
     private String questionText;
 
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
 
-    // getters and setters
+    @ManyToOne
+    @JoinColumn(name = "quiz_id", nullable = false) // Foreign key column in the Question table
+    private Quiz quiz;
+
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -37,5 +45,19 @@ public class Question {
 
     public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
+    }
+
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
+    }
+
+    public enum Difficulty {
+        EASY,
+        NORMAL,
+        HARD
     }
 }
