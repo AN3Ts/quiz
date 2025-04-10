@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Question</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        button {
+            margin-top: 5px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .radio-group {
+            margin-top: 15px;
+        }
+
+        .radio-group label {
+            margin-right: 15px;
+            font-weight: normal;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 15px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 30%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .cancel-btn {
+            background-color: #6c757d;
+        }
+
+        .cancel-btn:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Add Question</h1>
+        <form action="/questions" method="post">
+            <label for="questionText">Question Text</label>
+            <input type="text" id="questionText" name="questionText" placeholder="Enter question text" required>
+
+            <label>Difficulty</label>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="difficulty" value="EASY" required> Easy
+                </label>
+                <br>
+                <label>
+                    <input type="radio" name="difficulty" value="NORMAL"> Normal
+                </label>
+                <br>
+                <label>
+                    <input type="radio" name="difficulty" value="HARD"> Hard
+                </label>
+            </div>
+
+            <div class="buttons">
+                <button type="submit">Add</button>
+                <button type="button" class="cancel-btn"
+                    onclick="window.location.href='/quizzes/showQuizzes'">Cancel</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
