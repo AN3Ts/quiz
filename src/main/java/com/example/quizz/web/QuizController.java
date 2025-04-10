@@ -17,35 +17,36 @@ public class QuizController {
     @Autowired
     private QuizRepository quizRepository;
 
-    // return all quizzes in UI view
+    // Return all quizzes
     @GetMapping("/showQuizzes")
     public String showQuizzesString(Model model) {
         List<Quiz> quizzes = quizRepository.findAll(); 
         model.addAttribute("quizzes", quizzes);
-        return "quizzes"; //return quizzes.html
+        return "quizzes";
     }
 
-    // Serve the Add Quiz form
+    // Show the form to add a new quiz
     @GetMapping("/addquiz")
     public String showAddQuizForm() {
-        return "addquiz"; //return addquizz.html
+        return "addquiz";
     }
 
-    // Create and save new quiz
+    // Create and save a new quiz
     @PostMapping
     public String createQuiz(@ModelAttribute Quiz quiz) {
         quizRepository.save(quiz);
-        return "redirect:/quizzes"; 
-    } //successful save currentlt return json of newly added quiz, and not the homepage
+        return "redirect:/quizzes/showQuizzes"; 
+    }
 
-    // return json of all quizzes here with the annottation @ResponseBody
+    // Return json of all quizzes here with the annottation @ResponseBody
     @GetMapping
     @ResponseBody
     public List<Quiz> getQuiz() {
         return quizRepository.findAll();
     }
 
-    @GetMapping("/{id}") //This has to be a GetMapping, not DeleteMapping, method used below is deleteById
+    // Delete a quiz by its id
+    @GetMapping("/{id}")
     public String deleteQuiz(@PathVariable Long id, Model model) {
         quizRepository.deleteById(id);
 
@@ -58,5 +59,36 @@ public class QuizController {
         }
 
         return "redirect:../quizzes/showQuizzes";
+    }
+
+    // Get the quiz to be edited and show the edit form
+    @GetMapping("/editquiz/{id}")
+    public String showEditQuizForm(@PathVariable Long id, Model model) {
+        Quiz quiz = quizRepository.findById(id).orElse(null);
+        model.addAttribute("quiz", quiz);
+        return "editquiz"; 
+    }
+
+    // Update the quiz with the new data from the edit form
+    @PostMapping("/editquiz/{id}")
+    public String updateQuiz(@PathVariable Long id, @ModelAttribute Quiz quiz, Model model) {
+        Quiz existingQuiz = quizRepository.findById(id).orElse(null);
+        
+        if (existingQuiz != null) {
+            existingQuiz.setName(quiz.getName());
+            existingQuiz.setDescription(quiz.getDescription());
+            existingQuiz.setCourseCode(quiz.getCourseCode());
+            existingQuiz.setPublished(quiz.isPublished());
+            
+            quizRepository.save(existingQuiz);
+
+            model.addAttribute("message", "Quiz updated successfully");
+            model.addAttribute("alertType", "success");
+        } else {
+            model.addAttribute("message", "Quiz not found");
+            model.addAttribute("alertType", "danger");
+        }
+
+        return "redirect:/quizzes/showQuizzes";
     }
 }
