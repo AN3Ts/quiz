@@ -92,8 +92,9 @@
 
 <body>
     <div class="container">
-        <h1>Add Question</h1>
+        <h1>Add Question to Quiz: <span th:text="${quizName}"></span></h1>
         <form action="/questions" method="post">
+            <input type="hidden" name="quizId" th:value="${quizId}">
             <label for="questionText">Question Text</label>
             <input type="text" id="questionText" name="questionText" placeholder="Enter question text" required>
 
