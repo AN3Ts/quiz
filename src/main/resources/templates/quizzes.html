@@ -41,7 +41,12 @@
             <td th:text="${quiz.name}"></td>
             <td th:text="${quiz.description}"></td>
             <td th:text="${quiz.courseCode}"></td>
-            <td th:text="${quiz.published} ? 'Yes' : 'No'"></td>
+            <td>
+              <span
+                th:class="${quiz.published} ? 'badge bg-success' : 'badge bg-danger'"
+                th:text="${quiz.published} ? 'Published' : 'Not published'"
+              ></span>
+            </td>
             <td>
               <a
                 class="btn btn-danger"
@@ -52,6 +57,12 @@
                 th:href="@{/quizzes/editquiz/{id}(id=${quiz.id})}"
                 class="btn btn-secondary"
                 >Edit</a
+              >
+              <!-- Button to show all questions in a quiz -->
+              <a
+                th:href="@{/questions/quiz/{id}(id=${quiz.id})}"
+                class="btn btn-warning"
+                >Show all questions</a
               >
             </td>
 
