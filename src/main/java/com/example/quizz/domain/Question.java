@@ -1,5 +1,6 @@
 package com.example.quizz.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -30,7 +31,7 @@ public class Question {
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Answer> answers;
+    private List<Answer> answers = new ArrayList<>();
 
     // Getters and Setters
     public Long getId() {
