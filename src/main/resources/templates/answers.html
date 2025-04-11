@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Answers of Question</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap 5.3.0 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container my-5">
+      <h2 class="text-center mb-4">
+        Answers of Question:
+        <strong th:text="${questionText}">Sample Question</strong>
+      </h2>
+
+      <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Answer Text</th>
+            <th scope="col">Is Correct</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="answer : ${answers}">
+            <td th:text="${answer.answerText}">Sample answer</td>
+            <td>
+              <span
+                th:if="${answer.isCorrect}"
+                class="badge bg-success fs-6 px-2 py-1"
+                >Yes</span
+              >
+              <span
+                th:if="${!answer.isCorrect}"
+                class="badge bg-danger fs-6 px-2 py-1"
+                >No</span
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="mt-4">
+        <a href="/questions" class="btn btn-secondary">Back to Questions</a>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5.3.0 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
