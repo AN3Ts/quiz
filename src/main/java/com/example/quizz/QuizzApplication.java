@@ -1,5 +1,7 @@
 package com.example.quizz;
 
+import com.example.quizz.domain.Answer;
+import com.example.quizz.domain.AnswerRepository;
 import com.example.quizz.domain.Question;
 import com.example.quizz.domain.Question.Difficulty;
 import com.example.quizz.domain.Quiz;
@@ -19,7 +21,8 @@ public class QuizzApplication {
     }
 
     @Bean
-    public CommandLineRunner loadData(QuizRepository quizRepository, QuestionRepository questionRepository) {
+    public CommandLineRunner loadData(QuizRepository quizRepository, QuestionRepository questionRepository,
+            AnswerRepository answerRepository) {
         return (args) -> {
             // Add sample quizzes
             Quiz quiz1 = new Quiz();
@@ -45,7 +48,7 @@ public class QuizzApplication {
             quizRepository.save(quiz2);
             quizRepository.save(quiz3);
 
-			// Add sample questions to quiz1
+            // Add sample questions to quiz1
             Question question1 = new Question();
             question1.setQuestionText("What is the size of an int in Java?");
             question1.setDifficulty(Difficulty.EASY);
@@ -61,11 +64,77 @@ public class QuizzApplication {
             question3.setDifficulty(Difficulty.HARD);
             question3.setQuiz(quiz1);
 
+            // Add answers for question 1
+            Answer answer1 = new Answer();
+            answer1.setAnswerText("32 bits");
+            answer1.setQuestion(question1);
+            answer1.setIsCorrect(true);
+
+            Answer answer2 = new Answer();
+            answer2.setAnswerText("4 byte");
+            answer2.setQuestion(question1);
+            answer2.setIsCorrect(true);
+
+            Answer answer3 = new Answer();
+            answer3.setAnswerText("10 byte");
+            answer3.setQuestion(question1);
+            answer3.setIsCorrect(false);
+
+            // Add answers for question 2
+            Answer answer4 = new Answer();
+            answer4.setAnswerText("false");
+            answer4.setQuestion(question2);
+            answer4.setIsCorrect(true);
+
+            Answer answer5 = new Answer();
+            answer5.setAnswerText("true");
+            answer5.setQuestion(question2);
+            answer5.setIsCorrect(false);
+
+            Answer answer6 = new Answer();
+            answer6.setAnswerText("null");
+            answer6.setQuestion(question2);
+            answer6.setIsCorrect(false);
+
+            // Add answers for question 3
+            Answer answer7 = new Answer();
+            answer7.setAnswerText("The ability of an object to take many forms");
+            answer7.setQuestion(question3);
+            answer7.setIsCorrect(true);
+
+            Answer answer8 = new Answer();
+            answer8.setAnswerText("The process of hiding internal details");
+            answer8.setQuestion(question3);
+            answer8.setIsCorrect(false); // This refers more to encapsulation
+
+            Answer answer9 = new Answer();
+            answer9.setAnswerText("The technique of defining multiple constructors");
+            answer9.setQuestion(question3);
+            answer9.setIsCorrect(false);
+
             // Save questions to the database
             questionRepository.save(question1);
             questionRepository.save(question2);
             questionRepository.save(question3);
 
+            // Save answers for question 1
+            answerRepository.save(answer1);
+            answerRepository.save(answer2);
+            answerRepository.save(answer3);
+
+            // Save answers for question 2
+            answerRepository.save(answer4);
+            answerRepository.save(answer5);
+            answerRepository.save(answer6);
+
+            // Save answers for question 3
+            answerRepository.save(answer7);
+            answerRepository.save(answer8);
+            answerRepository.save(answer9);
+
+            System.out.println("question1's answers: " + question1.getAnswers());
+            System.out.println("question3's answers: " + question3.getAnswers());
+            System.out.println("quiz1's questions: " + quiz1.getQuestions());
 
         };
     }
