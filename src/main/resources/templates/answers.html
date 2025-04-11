@@ -44,7 +44,11 @@
       </table>
 
       <div class="mt-4">
-        <a href="/questions" class="btn btn-secondary">Back to Questions</a>
+        <a
+          th:href="@{/questions/quiz/{id}(id=${quizId})}"
+          class="btn btn-secondary"
+          >Back to Questions</a
+        >
       </div>
     </div>
 
