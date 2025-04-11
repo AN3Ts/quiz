@@ -33,6 +33,7 @@ public class AnswerController {
         model.addAttribute("questionText", question.getQuestionText());
         model.addAttribute("questionId", question.getId());
         model.addAttribute("answers", question.getAnswers());
+        model.addAttribute("quizId", question.getQuiz().getId());
 
         return "answers";
 
