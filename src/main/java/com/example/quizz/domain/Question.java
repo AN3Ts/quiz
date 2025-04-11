@@ -1,5 +1,8 @@
 package com.example.quizz.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -20,6 +23,7 @@ public class Question {
 
     @ManyToOne
     @JoinColumn(name = "quiz_id", nullable = false) // Foreign key column in the Question table
+    @JsonBackReference
     private Quiz quiz;
 
     // Getters and Setters
