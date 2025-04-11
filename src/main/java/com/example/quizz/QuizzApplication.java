@@ -1,7 +1,10 @@
 package com.example.quizz;
 
+import com.example.quizz.domain.Question;
+import com.example.quizz.domain.Question.Difficulty;
 import com.example.quizz.domain.Quiz;
 import com.example.quizz.domain.QuizRepository;
+import com.example.quizz.domain.QuestionRepository;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +19,7 @@ public class QuizzApplication {
     }
 
     @Bean
-    public CommandLineRunner loadData(QuizRepository quizRepository) {
+    public CommandLineRunner loadData(QuizRepository quizRepository, QuestionRepository questionRepository) {
         return (args) -> {
             // Add sample quizzes
             Quiz quiz1 = new Quiz();
@@ -41,6 +44,29 @@ public class QuizzApplication {
             quizRepository.save(quiz1);
             quizRepository.save(quiz2);
             quizRepository.save(quiz3);
+
+			// Add sample questions to quiz1
+            Question question1 = new Question();
+            question1.setQuestionText("What is the size of an int in Java?");
+            question1.setDifficulty(Difficulty.EASY);
+            question1.setQuiz(quiz1);
+
+            Question question2 = new Question();
+            question2.setQuestionText("What is the default value of a boolean in Java?");
+            question2.setDifficulty(Difficulty.NORMAL);
+            question2.setQuiz(quiz1);
+
+            Question question3 = new Question();
+            question3.setQuestionText("Explain the concept of polymorphism in Java.");
+            question3.setDifficulty(Difficulty.HARD);
+            question3.setQuiz(quiz1);
+
+            // Save questions to the database
+            questionRepository.save(question1);
+            questionRepository.save(question2);
+            questionRepository.save(question3);
+
+
         };
     }
 }
