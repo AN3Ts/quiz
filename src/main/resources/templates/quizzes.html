@@ -43,7 +43,7 @@
             <td th:text="${quiz.courseCode}"></td>
             <td>
               <span
-                th:class="${quiz.published} ? 'badge bg-success' : 'badge bg-danger'"
+                th:class="${quiz.published} ? 'badge bg-dark' : 'badge bg-secondary'"
                 th:text="${quiz.published} ? 'Published' : 'Not published'"
               ></span>
             </td>
@@ -55,7 +55,7 @@
               >
               <a
                 th:href="@{/quizzes/editquiz/{id}(id=${quiz.id})}"
-                class="btn btn-secondary"
+                class="btn btn-info"
                 >Edit</a
               >
               <!-- Button to show all questions in a quiz -->
