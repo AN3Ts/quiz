@@ -13,50 +13,55 @@
 
   <body>
     <div class="container mt-5">
-        <!-- Alert message -->
-            <div
-            th:if="${message}"
-            th:class="'alert alert-' + ${alertType}"
-            role="alert"
-        >
-            <span th:text="${message}"></span>
+      <!-- Alert message -->
+      <div
+        th:if="${message}"
+        th:class="'alert alert-' + ${alertType}"
+        role="alert"
+      >
+        <span th:text="${message}"></span>
       </div>
 
-      
-      <h1 class="text-center mb-4">Question of Quiz: <span th:text="${quizName}"></span></h1>
+      <h1 class="text-center mb-4">
+        Question of Quiz: <span th:text="${quizName}"></span>
+      </h1>
 
       <table class="table table-striped table-bordered">
         <thead class="table-dark">
           <tr>
             <th scope="col">Question Text</th>
             <th scope="col">Difficulty</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
           <tr th:each="question : ${questions}">
             <td th:text="${question.questionText}"></td>
             <td th:text="${question.difficulty}"></td>
+            <td>
+              <a
+                th:href="@{/answers/question/{id}(id=${question.id})}"
+                class="btn btn-primary btn-sm"
+                >Show answers</a
+              >
+            </td>
           </tr>
         </tbody>
       </table>
 
       <!-- Back button -->
       <div class="d-grid gap-2 d-md-block">
-        <a 
+        <a
           class="btn btn-primary"
           th:href="@{/questions/add/{quizId}(quizId=${quizId})}"
         >
           Add a question
-      </a>
+        </a>
 
-        <a
-          class="btn btn-secondary"
-          th:href="@{/quizzes/showQuizzes}"
-        >
+        <a class="btn btn-secondary" th:href="@{/quizzes/showQuizzes}">
           Back to Quizzes
-    </a>
+        </a>
       </div>
     </div>
-
   </body>
 </html>
