@@ -24,6 +24,17 @@ public class QuestionController {
     @Autowired
     private QuestionRepository questionRepository;
 
+    @GetMapping("/quiz/{quizId}")
+    public String showQuestions(@PathVariable Long quizId, Model model) {
+        Quiz quiz = quizRepository.findById(quizId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid quiz ID: " + quizId));
+        model.addAttribute("quizName", quiz.getName());
+        model.addAttribute("quizId", quiz.getId()); 
+        model.addAttribute("questions", quiz.getQuestions()); 
+
+        return "questions";
+    }
+    
     @GetMapping("/add/{quizId}")
     public String showAddQuestionForm(@PathVariable Long quizId, Model model) {
         Quiz quiz = quizRepository.findById(quizId)
@@ -33,6 +44,7 @@ public class QuestionController {
         return "addquestion";
     }
 
+    
     @PostMapping
     public String createQuestion(@RequestParam Long quizId, @RequestParam String questionText,
             @RequestParam String difficulty) {
