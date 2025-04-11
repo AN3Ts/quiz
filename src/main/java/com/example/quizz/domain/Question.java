@@ -64,6 +64,7 @@ public class Question {
 
     public void setQuiz(Quiz quiz) {
         this.quiz = quiz;
+        quiz.getQuestions().add(this);
     }
 
     public enum Difficulty {
