@@ -1,5 +1,7 @@
 package com.example.quizz.domain;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -25,6 +27,10 @@ public class Question {
     @JoinColumn(name = "quiz_id", nullable = false) // Foreign key column in the Question table
     @JsonBackReference
     private Quiz quiz;
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Answer> answers;
 
     // Getters and Setters
     public Long getId() {
@@ -64,4 +70,13 @@ public class Question {
         NORMAL,
         HARD
     }
+
+    public List<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
+    }
+
 }
