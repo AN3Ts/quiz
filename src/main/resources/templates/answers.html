@@ -43,12 +43,19 @@
         </tbody>
       </table>
 
-      <div class="mt-4">
+      <div class="mt-4 d-flex gap-2">
+        <a
+          th:href="@{/answers/add/{id}(id=${questionId})}"
+          class="btn btn-primary"
+          >Add an answer</a
+        >
+
         <a
           th:href="@{/questions/quiz/{id}(id=${quizId})}"
           class="btn btn-secondary"
-          >Back to Questions</a
         >
+          Back to Questions
+        </a>
       </div>
     </div>
 
