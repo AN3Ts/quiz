@@ -11,19 +11,21 @@
     />
     <style>
       body {
-        background-color: #ffffff;
+        background-color: #f4f4f9;
       }
-      .form-bordered {
-        border: 1px solid #ccc;
+      .form-card {
+        max-width: 600px;
+        margin: 50px auto;
+        background-color: white;
         padding: 30px;
-        border-radius: 8px;
-        background-color: #fefefe;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       }
     </style>
   </head>
   <body>
     <div class="container py-5">
-      <div class="form-bordered">
+      <div class="form-card">
         <h4 class="mb-4">
           Add an answer option to
           <strong th:text="${questionText}">Sample question</strong>
