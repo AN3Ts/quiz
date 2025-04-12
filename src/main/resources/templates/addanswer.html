@@ -31,7 +31,9 @@
           <strong th:text="${questionText}">Sample question</strong>
         </h4>
 
-        <form>
+        <form th:action="@{/answers}" method="post">
+          <input type="hidden" name="questionId" th:value="${questionId}" />
+
           <div class="mb-3">
             <label for="answerText" class="form-label"
               >Answer option text</label
@@ -40,15 +42,22 @@
               type="text"
               class="form-control"
               id="answerText"
+              name="answerText"
               placeholder="Enter answer option"
+              required
             />
           </div>
 
           <div class="form-check mb-4">
-            <input class="form-check-input" type="checkbox" id="isCorrect" />
-            <label class="form-check-label" for="isCorrect">
-              Correct answer
-            </label>
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="isCorrect"
+              name="isCorrect"
+            />
+            <label class="form-check-label" for="isCorrect"
+              >Correct answer</label
+            >
           </div>
 
           <button type="submit" class="btn btn-primary me-2">Add</button>
@@ -61,7 +70,7 @@
       </div>
     </div>
 
-    <!-- Bootstrap 5.3.0 JS -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
