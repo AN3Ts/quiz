@@ -51,4 +51,24 @@ public class AnswerController {
         return "addanswer";
     }
 
+    // Save new answer
+    @PostMapping
+    public String createAnswer(
+            @RequestParam Long questionId,
+            @RequestParam String answerText,
+            @RequestParam(required = false, defaultValue = "false") boolean isCorrect) {
+        Question question = questionRepository.findById(questionId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid question ID: " + questionId));
+
+        Answer answer = new Answer();
+        answer.setAnswerText(answerText);
+        answer.setIsCorrect(isCorrect);
+        answer.setQuestion(question);
+
+        answerRepository.save(answer);
+
+        return "redirect:/answers/question/" + questionId;
+
+    }
+
 }
