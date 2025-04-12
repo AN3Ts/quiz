@@ -39,4 +39,16 @@ public class AnswerController {
 
     }
 
+    // Show add answer form
+    @GetMapping("/add/{questionId}")
+    public String showAddAnswerForm(@PathVariable Long questionId, Model model) {
+        Question question = questionRepository.findById(questionId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid question ID: " + questionId));
+        model.addAttribute("questionText", question.getQuestionText());
+        model.addAttribute("questionId", question.getId());
+        model.addAttribute("quizId", question.getQuiz().getId());
+
+        return "addanswer";
+    }
+
 }
