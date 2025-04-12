@@ -26,7 +26,7 @@
       <div class="form-bordered">
         <h4 class="mb-4">
           Add an answer option to
-          <strong>"What is the purpose of the Retrospective event?"</strong>
+          <strong th:text="${questionText}">Sample question</strong>
         </h4>
 
         <form>
@@ -50,7 +50,11 @@
           </div>
 
           <button type="submit" class="btn btn-primary me-2">Add</button>
-          <button type="button" class="btn btn-secondary">Cancel</button>
+          <a
+            th:href="@{/answers/question/{id}(id=${questionId})}"
+            class="btn btn-secondary"
+            >Cancel</a
+          >
         </form>
       </div>
     </div>
