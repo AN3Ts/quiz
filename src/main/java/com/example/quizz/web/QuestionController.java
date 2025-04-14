@@ -62,4 +62,18 @@ public class QuestionController {
         //de tam thoi o day la showQuizzes vi chua co showQuestions
     }
 
+    @GetMapping("/delete/{quizId}/{questionId}")
+    public String deleteQuestion(@PathVariable Long quizId, @PathVariable Long questionId, Model model) {
+        questionRepository.deleteById(questionId);
+
+        if (questionRepository.existsById(questionId)) {
+            model.addAttribute("message", "Delete failed"); 
+            model.addAttribute("alertType", "danger"); 
+        } else {
+            model.addAttribute("message", "Delete successful");
+            model.addAttribute("alertType", "success"); 
+        }
+
+        return "redirect:/questions/quiz/" + quizId;
+    }
 }
