@@ -44,6 +44,12 @@
                 class="btn btn-primary btn-sm"
                 >Show answers</a
               >
+
+              <a
+                th:href="@{/questions/delete/{quizId}/{questionId} (quizId=${quizId}, questionId=${question.id})}"
+                class="btn btn-danger btn-sm"
+                >Delete Quetion</a
+              >
             </td>
           </tr>
         </tbody>
