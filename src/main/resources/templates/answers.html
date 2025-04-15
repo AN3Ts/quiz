@@ -22,6 +22,7 @@
           <tr>
             <th scope="col">Answer Text</th>
             <th scope="col">Is Correct</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +39,54 @@
                 class="badge bg-danger fs-6 px-2 py-1"
                 >No</span
               >
+            </td>
+
+            <td>
+              <a
+                th:attr="data-bs-toggle='modal', data-bs-target='#deletePopUp-' + ${answer.id}"
+                class="btn btn-danger btn-sm"
+                >Delete Answer</a
+              >
+
+              <!-- Delete Pop-up -->
+              <div
+                class="modal fade"
+                th:id="'deletePopUp-' + ${answer.id}"
+                tabindex="-1"
+                aria-labelledby="deletePopUpLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="deletePopUpLabel">
+                        Warning!
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      Are you sure you want to delete
+                      <strong th:text="${answer.answerText}"></strong>
+                      <br />
+                      This action cannot be undone.
+                    </div>
+                    <div class="modal-footer">
+                      <a class="btn btn-danger" data-bs-dismiss="modal"> No </a>
+                      <a
+                        class="btn btn-success"
+                        th:href="@{/answers/delete/{questionId}/{answerId} (questionId=${questionId}, answerId=${answer.id})}"
+                      >
+                        Yes
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
