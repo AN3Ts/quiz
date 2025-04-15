@@ -11,7 +11,6 @@ import com.example.quizz.domain.Question;
 import com.example.quizz.domain.QuestionRepository;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,7 +35,6 @@ public class AnswerController {
         model.addAttribute("quizId", question.getQuiz().getId());
 
         return "answers";
-
     }
 
     // Show add answer form
@@ -68,7 +66,21 @@ public class AnswerController {
         answerRepository.save(answer);
 
         return "redirect:/answers/question/" + questionId;
-
     }
 
+    // Delete answer by id
+    @GetMapping("/delete/{questionId}/{answerId}")
+    public String deleteAnswer(@PathVariable Long questionId, @PathVariable Long answerId, Model model) {
+        answerRepository.deleteById(answerId);
+
+        if (answerRepository.existsById(answerId)) {
+            model.addAttribute("message", "Delete failed");
+            model.addAttribute("alertType", "danger");
+        } else {
+            model.addAttribute("message", "Delete successful");
+            model.addAttribute("alertType", "success");
+        }
+
+        return "redirect:/answers/question/" + questionId;
+    }
 }
