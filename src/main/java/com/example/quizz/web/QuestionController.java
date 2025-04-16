@@ -58,8 +58,7 @@ public class QuestionController {
 
         questionRepository.save(question);
 
-        return "redirect:/quizzes/showQuizzes"; 
-        //de tam thoi o day la showQuizzes vi chua co showQuestions
+        return "redirect:/questions/quiz/" + quizId;
     }
 
     @GetMapping("/delete/{quizId}/{questionId}")
