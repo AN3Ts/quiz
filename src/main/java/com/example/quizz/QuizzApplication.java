@@ -24,7 +24,8 @@ public class QuizzApplication {
     public CommandLineRunner loadData(QuizRepository quizRepository, QuestionRepository questionRepository,
             AnswerRepository answerRepository) {
         return (args) -> {
-            // Add sample quizzes
+            if (quizRepository.count() == 0){
+                // Add sample quizzes
             Quiz quiz1 = new Quiz();
             quiz1.setName("Java Basics");
             quiz1.setDescription("A quiz about the basics of Java programming.");
@@ -136,6 +137,8 @@ public class QuizzApplication {
             System.out.println("question3's answers: " + question3.getAnswers());
             System.out.println("quiz1's questions: " + quiz1.getQuestions());
 
+            }
+            
         };
     }
 }
