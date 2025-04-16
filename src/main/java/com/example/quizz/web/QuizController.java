@@ -38,12 +38,7 @@ public class QuizController {
         return "redirect:/quizzes/showQuizzes"; 
     }
 
-    // Return json of all quizzes here with the annottation @ResponseBody
-    @GetMapping
-    @ResponseBody
-    public List<Quiz> getQuiz() {
-        return quizRepository.findAll();
-    }
+   
 
     // Delete a quiz by its id
     @GetMapping("/{id}")
