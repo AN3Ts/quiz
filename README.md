@@ -11,11 +11,16 @@
 
 [Link to Backlog Project](https://github.com/orgs/AN3Ts/projects/1)
 
+## Deployment
+
+The application is deployed and accessible at:  
+[Quiz Application Deployment](https://quiz-git-quiz.2.rahtiapp.fi/quizzes/showQuizzes)
+
 ## Teacher Dashboard Features
 
 ### Quiz Management
 
-- Add quizzes with:
+- Add quizzes with:`
   - **Name** (e.g., “The Scrum framework”).
   - **Description**.
   - **Course code**.
