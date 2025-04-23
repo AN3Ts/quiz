@@ -24,7 +24,9 @@ public class ApiController {
     @GetMapping("/quizzes") 
     @ResponseBody
     public List<Quiz> getQuiz() {
-        return quizRepository.findAll();
+        List<Quiz> allQuizzes = quizRepository.findAll();
+        List<Quiz> publishedQuizzes = allQuizzes.stream().filter(Quiz::isPublished).toList();
+        return publishedQuizzes;
     }
 
 }

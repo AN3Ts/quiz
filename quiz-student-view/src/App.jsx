@@ -7,8 +7,8 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetch('https://quiz-git-quiz.2.rahtiapp.fi/api/quizzes');
-      const allQuizzes = await data.json();
-      setQuizzes(allQuizzes.filter((quiz) => quiz.published === true));
+      //const data = await fetch('http://localhost:8080/api/quizzes');
+      setQuizzes(await data.json());
     };
     fetchData();
   }, []);
