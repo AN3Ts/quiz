@@ -11,6 +11,10 @@
 
 [Link to Backlog Project](https://github.com/orgs/AN3Ts/projects/1)
 
+## Retrospective
+
+[Sprint 1](https://edu.flinga.fi/s/EH4Y23J)
+
 ## Deployment
 
 The application is deployed and accessible at:  
