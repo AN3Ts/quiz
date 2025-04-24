@@ -62,7 +62,7 @@
               <a
                 th:href="@{/questions/quiz/{id}(id=${quiz.id})}"
                 class="btn btn-warning"
-                >Show all questions</a
+                >Show questions</a
               >
             </td>
 
@@ -110,10 +110,17 @@
       <div class="d-flex justify-content-center mt-4">
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-primary me-2"
           onclick="window.location.href='/quizzes/addquiz'"
         >
           Add New Quiz
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          onclick="window.location.href='/categories/showCategories'"
+        >
+          See Categories
         </button>
       </div>
     </div>
