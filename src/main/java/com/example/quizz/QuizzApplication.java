@@ -2,11 +2,13 @@ package com.example.quizz;
 
 import com.example.quizz.domain.Answer;
 import com.example.quizz.domain.AnswerRepository;
+import com.example.quizz.domain.CategoryRepository;
 import com.example.quizz.domain.Question;
 import com.example.quizz.domain.Question.Difficulty;
 import com.example.quizz.domain.Quiz;
 import com.example.quizz.domain.QuizRepository;
 import com.example.quizz.domain.QuestionRepository;
+import com.example.quizz.domain.Category;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,7 +24,7 @@ public class QuizzApplication {
 
     @Bean
     public CommandLineRunner loadData(QuizRepository quizRepository, QuestionRepository questionRepository,
-            AnswerRepository answerRepository) {
+            AnswerRepository answerRepository, CategoryRepository categoryRepository) {
         return (args) -> {
             if (quizRepository.count() == 0){
                 // Add sample quizzes
@@ -137,6 +139,13 @@ public class QuizzApplication {
             System.out.println("question3's answers: " + question3.getAnswers());
             System.out.println("quiz1's questions: " + quiz1.getQuestions());
 
+            }
+
+            if (categoryRepository.count() == 0){
+                Category cat1 = new Category(); 
+                cat1.setName("Agile");
+                cat1.setDescription("Quizzes related to the Agile principles and project managemnet framework");
+                categoryRepository.save(cat1); 
             }
             
         };

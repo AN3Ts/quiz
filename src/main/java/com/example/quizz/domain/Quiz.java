@@ -39,6 +39,7 @@ public class Quiz {
     @JsonManagedReference // to manage the API, avoid looping of parent-child
     private List<Question> questions = new ArrayList<>();
 
+
     // Getters and Setters
     public Long getId() {
         return id;

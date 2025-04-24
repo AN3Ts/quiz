@@ -38,7 +38,6 @@ public class QuizController {
         return "redirect:/quizzes/showQuizzes"; 
     }
 
-   
 
     // Delete a quiz by its id
     @GetMapping("/{id}")

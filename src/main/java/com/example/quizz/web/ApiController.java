@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.quizz.domain.Category;
+import com.example.quizz.domain.CategoryRepository;
 import com.example.quizz.domain.Quiz;
 import com.example.quizz.domain.QuizRepository;
 
@@ -19,6 +21,8 @@ public class ApiController {
 
     @Autowired
     private QuizRepository quizRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
    
      // Return json of all quizzes here with the annottation @ResponseBody
     @GetMapping("/quizzes") 
@@ -28,5 +32,12 @@ public class ApiController {
         List<Quiz> publishedQuizzes = allQuizzes.stream().filter(Quiz::isPublished).toList();
         return publishedQuizzes;
     }
+
+    @GetMapping("/categories")
+    @ResponseBody
+    public List<Category> getCategory() {
+        return categoryRepository.findAll();
+    }
+    
 
 }
