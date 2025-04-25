@@ -3,12 +3,14 @@ package com.example.quizz.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
@@ -28,9 +30,10 @@ public class Category {
     @Size(max = 255, message = "Description must not exceed 255 characters")
     private String description;
 
-    // @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-    // @JsonManagedReference
-    // private List<Quiz> quizzes = new ArrayList<>();
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    //@JsonManagedReference
+    private List<Quiz> quizzes = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -56,12 +59,12 @@ public class Category {
         this.description = description;
     }
 
-    /*public List<Quiz> getQuizzes() {
+    public List<Quiz> getQuizzes() {
         return quizzes;
     }
 
     public void setQuizzes(List<Quiz> quizzes) {
         this.quizzes = quizzes;
-    } */
+    } 
 
 }

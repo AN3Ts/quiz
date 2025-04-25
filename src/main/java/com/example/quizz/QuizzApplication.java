@@ -26,13 +26,22 @@ public class QuizzApplication {
     public CommandLineRunner loadData(QuizRepository quizRepository, QuestionRepository questionRepository,
             AnswerRepository answerRepository, CategoryRepository categoryRepository) {
         return (args) -> {
-            if (quizRepository.count() == 0){
+            
+            if (quizRepository.count() == 0 && categoryRepository.count() == 0 ){
+            
+                
+                    Category cat1 = new Category(); 
+                    cat1.setName("Agile");
+                    cat1.setDescription("Quizzes related to the Agile principles and project managemnet framework");
+                    categoryRepository.save(cat1); 
+                
                 // Add sample quizzes
             Quiz quiz1 = new Quiz();
             quiz1.setName("Java Basics");
             quiz1.setDescription("A quiz about the basics of Java programming.");
             quiz1.setCourseCode("JAVA101");
             quiz1.setPublished(true);
+            quiz1.setCategory(cat1);
 
             Quiz quiz2 = new Quiz();
             quiz2.setName("Spring Framework");
@@ -141,12 +150,7 @@ public class QuizzApplication {
 
             }
 
-            if (categoryRepository.count() == 0){
-                Category cat1 = new Category(); 
-                cat1.setName("Agile");
-                cat1.setDescription("Quizzes related to the Agile principles and project managemnet framework");
-                categoryRepository.save(cat1); 
-            }
+          
             
         };
     }
