@@ -1,6 +1,7 @@
 package com.example.quizz.web;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,8 @@ import com.example.quizz.domain.CategoryRepository;
 import com.example.quizz.domain.Question;
 import com.example.quizz.domain.Quiz;
 import com.example.quizz.domain.QuizRepository;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/api")
@@ -58,4 +61,22 @@ public class ApiController {
                 .map(quiz -> new ResponseEntity<>(quiz.getQuestions(), HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    //Get category by Id
+    @GetMapping("/categories/{id}")
+    @ResponseBody
+    public Optional<Category> getCategoryById(@PathVariable Long id) {
+        return categoryRepository.findById(id); 
+    }
+
+    //Get quizzes of a category
+    //Work for now but require error messages logging 
+    @GetMapping("/categories/{id}/quizzes")
+    @ResponseBody
+    public ResponseEntity<List<Quiz>> getQuizByCategoryId(@PathVariable Long id) {
+        return categoryRepository.findById(id)
+                .map(category -> new ResponseEntity<>(category.getQuizzes(), HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+    
 }
