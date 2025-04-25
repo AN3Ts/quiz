@@ -38,14 +38,16 @@ public class Quiz {
 
     private boolean published;
 
-    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference // to manage the API, avoid looping of parent-child
-    private List<Question> questions = new ArrayList<>();
-
     @ManyToOne
     @JoinColumn(name="category_id")
     //@JsonBackReference
     private Category category; 
+
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference // to manage the API, avoid looping of parent-child
+    private List<Question> questions = new ArrayList<>();
+
+    
 
     // Getters and Setters
     public Long getId() {

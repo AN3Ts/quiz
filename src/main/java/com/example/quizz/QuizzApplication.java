@@ -28,32 +28,38 @@ public class QuizzApplication {
         return (args) -> {
             
             if (quizRepository.count() == 0 && categoryRepository.count() == 0 ){
-            
+
+            Category cat1 = new Category(); 
+            cat1.setName("Agile");
+            cat1.setDescription("Quizzes related to the Agile principles and project managemnet framework");
+            categoryRepository.save(cat1); 
+
+            Category cat2 = new Category();
+            cat2.setName("Software Engineering");
+            cat2.setDescription("Quizzes related to software development methodologies and practices.");
+            categoryRepository.save(cat2);
                 
-                    Category cat1 = new Category(); 
-                    cat1.setName("Agile");
-                    cat1.setDescription("Quizzes related to the Agile principles and project managemnet framework");
-                    categoryRepository.save(cat1); 
                 
-                // Add sample quizzes
             Quiz quiz1 = new Quiz();
             quiz1.setName("Java Basics");
             quiz1.setDescription("A quiz about the basics of Java programming.");
             quiz1.setCourseCode("JAVA101");
             quiz1.setPublished(true);
-            quiz1.setCategory(cat1);
+            quiz1.setCategory(cat2);
 
             Quiz quiz2 = new Quiz();
             quiz2.setName("Spring Framework");
             quiz2.setDescription("A quiz about the Spring Framework.");
             quiz2.setCourseCode("SPRING202");
             quiz2.setPublished(false);
+            quiz2.setCategory(cat2);
 
             Quiz quiz3 = new Quiz();
             quiz3.setName("Database Fundamentals");
             quiz3.setDescription("A quiz about database concepts and SQL.");
             quiz3.setCourseCode("DB101");
             quiz3.setPublished(true);
+            quiz3.setCategory(cat1);
 
             // Save quizzes to the database
             quizRepository.save(quiz1);
