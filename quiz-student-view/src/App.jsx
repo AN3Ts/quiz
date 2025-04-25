@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
-import { AppBar, Typography, Box, Toolbar } from "@mui/material";
+import { AppBar, Typography, Box, Toolbar, Button } from "@mui/material";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
+import Categories from "./components/Categories";
+
+// Placeholder components for Quizz and Categories
+function Quizz() {
+  return <Typography variant="h5">Welcome to Quizz</Typography>;
+}
 
 function App() {
   const [quizzes, setQuizzes] = useState([]);
@@ -10,48 +17,49 @@ function App() {
       const data = await fetch(
         "https://quiz-git-quiz.2.rahtiapp.fi/api/quizzes"
       );
-      //const data = await fetch('http://localhost:8080/api/quizzes');
       setQuizzes(await data.json());
     };
     fetchData();
   }, []);
 
-  console.log(quizzes);
-
   return (
-    <Box
-      sx={{
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <AppBar position="static">
-        <Toolbar>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, fontWeight: "bold" }}
-          >
-            Quizzer
-          </Typography>
-        </Toolbar>
-      </AppBar>
+    <Router>
+      <Box
+        sx={{
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        {/* AppBar with navigation links */}
+        <AppBar position="static">
+          <Toolbar>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, fontWeight: "bold" }}
+            >
+              Quizzer
+            </Typography>
+            <Button color="inherit" component={Link} to="/">
+              Quizz
+            </Button>
+            <Button color="inherit" component={Link} to="/categories">
+              Categories
+            </Button>
+          </Toolbar>
+        </AppBar>
 
-      <Box sx={{ padding: 3, flexGrow: 1 }}>
-        <Typography variant="h5">Available Quizzes</Typography>
-        <ul>
-          {quizzes.map((quiz) => (
-            <li key={quiz.id}>
-              <Typography variant="body1">
-                <strong>{quiz.name}</strong>: {quiz.description}
-              </Typography>
-            </li>
-          ))}
-        </ul>
+        {/* Main Content */}
+        <Box sx={{ padding: 3, flexGrow: 1 }}>
+          <Routes>
+            <Route path="/" element={<Quizz />} />
+            <Route path="/categories" element={<Categories />} />
+          </Routes>
+        </Box>
       </Box>
-    </Box>
+    </Router>
   );
 }
 
