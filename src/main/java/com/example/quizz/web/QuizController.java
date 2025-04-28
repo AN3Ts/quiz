@@ -1,5 +1,7 @@
 package com.example.quizz.web;
 
+import com.example.quizz.domain.Category;
+import com.example.quizz.domain.CategoryRepository;
 import com.example.quizz.domain.Quiz;
 import com.example.quizz.domain.QuizRepository;
 
@@ -16,6 +18,8 @@ public class QuizController {
 
     @Autowired
     private QuizRepository quizRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     // Return all quizzes
     @GetMapping("/showQuizzes")
@@ -27,7 +31,9 @@ public class QuizController {
 
     // Show the form to add a new quiz
     @GetMapping("/addquiz")
-    public String showAddQuizForm() {
+    public String showAddQuizForm(Model model) {
+        List<Category> categories = categoryRepository.findAll();
+        model.addAttribute("categories", categories);
         return "addquiz";
     }
 
