@@ -1,124 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Quiz</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f9;
+      }
 
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+      .container {
+        max-width: 600px;
+        margin: 50px auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
 
-        h1 {
-            text-align: center;
-            color: #333;
-        }
+      h1 {
+        text-align: center;
+        color: #333;
+      }
 
-        form {
-            display: flex;
-            flex-direction: column;
-        }
+      form {
+        display: flex;
+        flex-direction: column;
+      }
 
-        label {
-            margin-top: 15px;
-            font-weight: bold;
-            color: #555;
-        }
+      label {
+        margin-top: 15px;
+        font-weight: bold;
+        color: #555;
+      }
 
-        input[type="text"],
-        input[type="checkbox"],
-        button {
-            margin-top: 5px;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
+      input[type="text"],
+      input[type="checkbox"],
+      button {
+        margin-top: 5px;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
 
-        input[type="text"]:focus {
-            border-color: #007bff;
-            outline: none;
-        }
+      input[type="text"]:focus {
+        border-color: #007bff;
+        outline: none;
+      }
 
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            margin-top: 15px;
-        }
+      .checkbox-label {
+        display: flex;
+        align-items: center;
+        margin-top: 15px;
+      }
 
-        .checkbox-label input {
-            margin-top: 15px;
-            margin-right: 10px;
-        }
+      .checkbox-label input {
+        margin-top: 15px;
+        margin-right: 10px;
+      }
 
-        .buttons {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            gap: 15px;
-        }
+      .buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        gap: 15px;
+      }
 
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-            width: 30%;
-        }
+      button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        width: 30%;
+      }
 
-        button:hover {
-            background-color: #0056b3;
-        }
+      button:hover {
+        background-color: #0056b3;
+      }
 
-        .cancel-btn {
-            background-color: #6c757d;
-        }
+      .cancel-btn {
+        background-color: #6c757d;
+      }
 
-        .cancel-btn:hover {
-            background-color: #5a6268;
-        }
+      .cancel-btn:hover {
+        background-color: #5a6268;
+      }
+
+      select {
+        margin-top: 5px;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+      }
+
+      select:focus {
+        border-color: #007bff;
+        outline: none;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <h1>Add Quiz</h1>
-        <form action="/quizzes" method="post">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Enter quiz name" required>
+      <h1>Add Quiz</h1>
+      <form action="/quizzes" method="post">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Enter quiz name"
+          required
+        />
 
-            <label for="description">Description</label>
-            <input type="text" id="description" name="description" placeholder="Enter quiz description" required>
+        <label for="description">Description</label>
+        <input
+          type="text"
+          id="description"
+          name="description"
+          placeholder="Enter quiz description"
+          required
+        />
 
-            <label for="course">Course code</label>
-            <input type="text" id="course" name="courseCode" placeholder="Enter course code" pattern="[A-Za-z0-9 ]+"
-                title="Only letters, numbers, and spaces are allowed" required>
+        <label for="course">Course code</label>
+        <input
+          type="text"
+          id="course"
+          name="courseCode"
+          placeholder="Enter course code"
+          pattern="[A-Za-z0-9 ]+"
+          title="Only letters, numbers, and spaces are allowed"
+          required
+        />
 
-            <div class="checkbox-label">
-                <input type="checkbox" id="published" name="published">
-                <label for="published">Published</label>
-            </div>
+        <label for="course">Category</label>
+        <select id="category" name="categoryId" required>
+          <option value="" disabled selected>Select...</option>
+          <th:block th:each="category : ${categories}">
+            <option
+              th:value="${category.id}"
+              th:text="${category.name}"
+            ></option>
+          </th:block>
+        </select>
 
-            <div class="buttons">
-                <button type="submit">Add</button>
-                <!-- Cancel button redirects the user back to the all quizzes page -->
-                <button type="button" class="cancel-btn" onclick="window.location.href='/quizzes/showQuizzes'">Cancel</button>
-            </div>
-        </form>
+        <div class="checkbox-label">
+          <input type="checkbox" id="published" name="published" />
+          <label for="published">Published</label>
+        </div>
+
+        <div class="buttons">
+          <button type="submit">Add</button>
+          <!-- Cancel button redirects the user back to the all quizzes page -->
+          <button
+            type="button"
+            class="cancel-btn"
+            onclick="window.location.href='/quizzes/showQuizzes'"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
     </div>
-</body>
-
+  </body>
 </html>
