@@ -11,6 +11,7 @@ import com.example.quizz.domain.Category;
 import com.example.quizz.domain.CategoryRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -32,11 +33,23 @@ public class CategoryController {
         return "addcategory";
     }
     
-
     @PostMapping
     public String createCategory(@ModelAttribute Category category) {
         categoryRepository.save(category); 
         return "redirect:/categories/showCategories";
     }
 
+    @GetMapping("/delete/{id}")
+    public String deleteCategory(@PathVariable Long id, Model model) {
+        categoryRepository.deleteById(id); 
+
+        if (categoryRepository.existsById(id)) {
+            model.addAttribute("message", "Delete failed"); 
+            model.addAttribute("alertType", "danger"); 
+        } else {
+            model.addAttribute("message", "Delete successful");
+            model.addAttribute("alertType", "success"); 
+        }
+        return "redirect:/categories/showCategories"; 
+    }
 }
