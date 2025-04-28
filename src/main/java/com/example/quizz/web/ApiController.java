@@ -1,5 +1,6 @@
 package com.example.quizz.web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,7 @@ import com.example.quizz.domain.StudentAnswerRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.example.quizz.dto.CreateAnswerOptionDTO;
+import com.example.quizz.dto.QuestionResultDTO;
 
 
 @RestController
@@ -135,5 +137,40 @@ public class ApiController {
         studentAnswerRepository.save(studentAnswer);
         
         return new ResponseEntity<>(HttpStatus.CREATED);
-    }   
+    }
+    
+    // Get the result of a quiz
+    @GetMapping("quizzes/{quizId}/result")
+    public ResponseEntity<?> getQuizResults(@PathVariable Long quizId) {
+        // Validate the quiz exists and is published
+        Optional<Quiz> quizOptional = quizRepository.findById(quizId);
+        if (quizOptional.isEmpty()) {
+            return new ResponseEntity<>("Quiz not found", HttpStatus.NOT_FOUND);
+        }
+
+        Quiz quiz = quizOptional.get();
+
+        List<QuestionResultDTO> results = new ArrayList<>();
+
+        for (Question question: quiz.getQuestions()) {
+            List<StudentAnswer> studentAnswers = studentAnswerRepository.findByAnswerQuestionId(question.getId());
+
+            long totalAnswers = studentAnswers.size();
+            long correctAnswers = studentAnswers.stream().filter(studentAnswer -> studentAnswer.getAnswer().getIsCorrect()).count();
+            long wrongAnswers = totalAnswers - correctAnswers;
+
+            QuestionResultDTO resultDTO = new QuestionResultDTO(
+                question.getId(),
+                question.getQuestionText(),
+                question.getDifficulty().toString(),
+                totalAnswers,
+                correctAnswers,
+                wrongAnswers
+            );
+
+            results.add(resultDTO);
+        }
+
+        return new ResponseEntity<>(results, HttpStatus.OK);
+    }    
 }
