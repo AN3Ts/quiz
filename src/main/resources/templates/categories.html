@@ -31,12 +31,60 @@
           <tr>
             <th scope="col">Name</th>
             <th scope="col">Description</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
           <tr th:each="category : ${categories}">
             <td th:text="${category.name}"></td>
             <td th:text="${category.description}"></td>
+            <td>
+              <a
+                th:attr="data-bs-toggle='modal', data-bs-target='#deletePopUp-' + ${category.id}"
+                class="btn btn-danger btn-sm"
+                >Delete</a
+              >
+
+              <!-- Delete Pop-up -->
+              <div
+                class="modal fade"
+                th:id="'deletePopUp-' + ${category.id}"
+                tabindex="-1"
+                aria-labelledby="deletePopUpLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="deletePopUpLabel">
+                        Warning!
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      Are you sure you want to delete
+                      <strong th:text="${category.name}"></strong>
+                      <br />
+                      This action cannot be undone.
+                    </div>
+                    <div class="modal-footer">
+                      <a class="btn btn-danger" data-bs-dismiss="modal"> No </a>
+                      <a
+                        class="btn btn-success"
+                        th:href="@{/categories/delete/{id}(id=${category.id})}"
+                      >
+                        Yes
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -45,9 +93,18 @@
       <div class="d-flex justify-content-center mt-4">
         <button
           type="button"
+          class="btn btn-secondary me-2"
+          onclick="window.location.href='/quizzes/showQuizzes'"
+        >
+          <!--TODO:  Change the href here -->
+          Back to Quizzes
+        </button>
+        <button
+          type="button"
           class="btn btn-primary"
           onclick="window.location.href='/categories/add'"
-        > <!--TODO:  Change the href here -->
+        >
+          <!--TODO:  Change the href here -->
           Add New Category
         </button>
       </div>
