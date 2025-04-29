@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ag-grid-community/client-side-row-model": "^32.3.5",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.0.2",
@@ -18,7 +17,8 @@
     "ag-grid-community": "^33.2.4",
     "ag-grid-react": "^33.2.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.5.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
