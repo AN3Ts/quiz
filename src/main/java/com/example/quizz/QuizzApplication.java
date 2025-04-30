@@ -27,7 +27,7 @@ public class QuizzApplication {
             AnswerRepository answerRepository, CategoryRepository categoryRepository) {
         return (args) -> {
             
-            if (quizRepository.count() == 0 && categoryRepository.count() == 0 ){
+            if (categoryRepository.count() == 0) {
 
             Category cat1 = new Category(); 
             cat1.setName("Agile");
@@ -38,9 +38,10 @@ public class QuizzApplication {
             cat2.setName("Software Engineering");
             cat2.setDescription("Quizzes related to software development methodologies and practices.");
             categoryRepository.save(cat2);
+        
                 
-                
-            Quiz quiz1 = new Quiz();
+            if(quizRepository.count() == 0) {
+                Quiz quiz1 = new Quiz();
             quiz1.setName("Java Basics");
             quiz1.setDescription("A quiz about the basics of Java programming.");
             quiz1.setCourseCode("JAVA101");
@@ -153,11 +154,8 @@ public class QuizzApplication {
             System.out.println("question1's answers: " + question1.getAnswers());
             System.out.println("question3's answers: " + question3.getAnswers());
             System.out.println("quiz1's questions: " + quiz1.getQuestions());
-
-            }
-
-          
-            
+            }                
+        }                     
         };
     }
 }

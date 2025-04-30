@@ -42,7 +42,7 @@
             <td th:text="${quiz.name}"></td>
             <td th:text="${quiz.description}"></td>
             <td th:text="${quiz.courseCode}"></td>
-            <td th:text="${quiz.category.name}"></td>
+            <td th:text="${quiz.category?.name}"></td>
             <td>
               <span
                 th:class="${quiz.published} ? 'badge bg-dark' : 'badge bg-secondary'"
