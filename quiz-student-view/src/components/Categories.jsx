@@ -19,7 +19,8 @@ export default function Categories() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("https://quiz-git-quiz.2.rahtiapp.fi/api/categories");
+      // const response = await fetch("https://quiz-git-quiz.2.rahtiapp.fi/api/categories");
+      const response = await fetch("http://localhost:8080/api/categories");
       setCategories(await response.json());
     };
     fetchData();
