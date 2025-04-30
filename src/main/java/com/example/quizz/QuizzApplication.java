@@ -26,7 +26,8 @@ public class QuizzApplication {
     public CommandLineRunner loadData(QuizRepository quizRepository, QuestionRepository questionRepository,
             AnswerRepository answerRepository, CategoryRepository categoryRepository) {
         return (args) -> {
-            
+            quizRepository.deleteAll();
+            categoryRepository.deleteAll();
             if (categoryRepository.count() == 0) {
 
             Category cat1 = new Category(); 
