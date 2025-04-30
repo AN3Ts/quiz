@@ -18,9 +18,12 @@ function App() {
         "https://quiz-git-quiz.2.rahtiapp.fi/api/quizzes"
       );
       setQuizzes(await data.json());
+      
     };
     fetchData();
+    
   }, []);
+  console.log(quizzes); 
 
   return (
     <Router>

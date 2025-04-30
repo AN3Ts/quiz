@@ -19,13 +19,14 @@ export default function Categories() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("http://localhost:8080/api/categories");
+      const response = await fetch("https://quiz-git-quiz.2.rahtiapp.fi/api/categories");
       setCategories(await response.json());
     };
     fetchData();
   }, []);
 
   useEffect(() => {
+
     if (categories.length > 0) {
       const rows = categories.map((category) => ({
         name: category.name,
@@ -34,6 +35,10 @@ export default function Categories() {
       setRowData(rows);
     }
   }, [categories]);
+
+  if (categories.length === 0){
+    console.log('There is no category')
+  }
 
   return (
     <>
