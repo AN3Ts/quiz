@@ -1,30 +1,10 @@
-import { useEffect, useState } from "react";
 import { AppBar, Typography, Box, Toolbar, Button } from "@mui/material";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
-import Categories from "./components/Categories";
-
-// Placeholder components for Quizz and Categories
-function Quizz() {
-  return <Typography variant="h5">Welcome to Quizz</Typography>;
-}
+import Categories from "./screens/Categories";
+import Quizzes from "./screens/Quizzes";
 
 function App() {
-  const [quizzes, setQuizzes] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetch(
-        "https://quiz-git-quiz.2.rahtiapp.fi/api/quizzes"
-      );
-      setQuizzes(await data.json());
-      
-    };
-    fetchData();
-    
-  }, []);
-  console.log(quizzes); 
-
   return (
     <Router>
       <Box
@@ -57,7 +37,7 @@ function App() {
         {/* Main Content */}
         <Box sx={{ padding: 3, flexGrow: 1 }}>
           <Routes>
-            <Route path="/" element={<Quizz />} />
+            <Route path="/" element={<Quizzes />} />
             <Route path="/categories" element={<Categories />} />
           </Routes>
         </Box>
