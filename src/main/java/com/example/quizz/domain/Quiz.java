@@ -2,6 +2,9 @@ package com.example.quizz.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -23,6 +26,9 @@ public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @CreationTimestamp
+    private Date createdDate;
 
     @NotBlank(message = "Name cannot be blank")
     @Size(max = 100, message = "Name must not exceed 100 characters")
@@ -46,8 +52,6 @@ public class Quiz {
     @JsonManagedReference // to manage the API, avoid looping of parent-child
     private List<Question> questions = new ArrayList<>();
 
-    
-
     // Getters and Setters
     public Long getId() {
         return id;
@@ -55,6 +59,14 @@ public class Quiz {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public String getName() {
