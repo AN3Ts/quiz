@@ -30,11 +30,7 @@ export default function Questions() {
       <Typography
         variant="h5"
         gutterBottom
-        sx={{
-          color: "#1976d2",
-          fontWeight: "600",
-          textTransform: "upperCase",
-        }}
+        sx={{ fontWeight: "bold", color: "#1976d2", letterSpacing: "1px" }}
       >
         {quizzes?.name}
       </Typography>
@@ -63,7 +59,8 @@ export default function Questions() {
             {q.questionText}
           </Typography>
           <Typography variant="subtitle1">
-            Question {index + 1} of {quizzes.questions.length} - Difficulty: {q.difficulty}
+            Question {index + 1} of {quizzes.questions.length} - Difficulty:{" "}
+            {q.difficulty}
           </Typography>
         </Paper>
       ))}
