@@ -6,9 +6,11 @@ import useFetchData from "../hooks/useFetchData";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
 
 export default function CategoryQuizzes() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { data: categoriesQuizzes } = useFetchData(
     import.meta.env.VITE_API_URL + "categories/" + id + "/quizzes"
   );
@@ -17,6 +19,20 @@ export default function CategoryQuizzes() {
       headerName: "Name",
       field: "name",
       filter: "agTextColumnFilter",
+      cellRenderer: (param) => {
+        return (
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(`/questions/${param.data.id}`);
+            }}
+            style={{ textDecoration: "underline", color: "#1976d2" }}
+          >
+            {param.value}
+          </a>
+        );
+      },
     },
     {
       headerName: "Description",
