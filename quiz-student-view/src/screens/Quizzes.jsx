@@ -1,14 +1,23 @@
 import useFetchData from "../hooks/useFetchData";
 import { AgGridReact } from "ag-grid-react";
 import { ModuleRegistry } from "ag-grid-community";
-import { ClientSideRowModelModule, ValidationModule } from "ag-grid-community";
+import {
+  ClientSideRowModelModule,
+  ValidationModule,
+  TextFilterModule,
+} from "ag-grid-community";
 import { Typography, Box, Paper } from "@mui/material";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import dayjs from "dayjs";
 import "./Quizzes.css";
+import { useNavigate } from "react-router-dom";
 
 // Register AG Grid modules
-ModuleRegistry.registerModules([ClientSideRowModelModule, ValidationModule]);
+ModuleRegistry.registerModules([
+  ClientSideRowModelModule,
+  ValidationModule,
+  TextFilterModule,
+]);
 
 export default function Quizzes() {
   const { data: quizzes } = useFetchData(
@@ -17,12 +26,32 @@ export default function Quizzes() {
 
   console.log(quizzes);
 
+  const navigate = useNavigate();
+
   const colDefs = [
     {
       headerName: "Name",
       field: "name",
       sortable: true,
       filter: "agTextColumnFilter",
+      cellRenderer: (params) => {
+        return (
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(`/questions/${params.data.id}`);
+            }}
+            style={{
+              color: "#1976d2",
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
+          >
+            {params.value}
+          </a>
+        );
+      },
     },
     {
       headerName: "Description",
@@ -59,7 +88,7 @@ export default function Quizzes() {
       <Typography
         variant="h4"
         gutterBottom
-        style={{ fontWeight: "bold", color: "#1976d2", letterSpacing:"1px" }}
+        sx={{ fontWeight: "bold", color: "#1976d2", letterSpacing: "1px" }}
       >
         Quizzes
       </Typography>
