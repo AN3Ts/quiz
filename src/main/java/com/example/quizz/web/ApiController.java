@@ -65,35 +65,54 @@ public class ApiController {
 
     @GetMapping("/quizzes/{id}")
     @ResponseBody
-    public ResponseEntity<Quiz> getQuizById(@PathVariable Long id) {
-        return quizRepository.findById(id)
-                .map(quiz -> new ResponseEntity<>(quiz, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<?> getQuizById(@PathVariable Long id) {
+       Optional<Quiz> quizOptional = quizRepository.findById(id); //the findById method returns an optional object
+        if (quizOptional.isEmpty()){
+            return new ResponseEntity<>("Quiz with the provided ID does not exist!",HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>(quizOptional.get(),HttpStatus.OK);
+            //with the Optional object, use method get() to retrieve the actual object
+        }
     }
 
     @GetMapping("/quizzes/{id}/questions")
     @ResponseBody
-    public ResponseEntity<List<Question>> getQuizQuestions(@PathVariable Long id) {
-        return quizRepository.findById(id)
-                .map(quiz -> new ResponseEntity<>(quiz.getQuestions(), HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<?> getQuizQuestions(@PathVariable Long id) {
+        Optional<Quiz> quizOptional = quizRepository.findById(id); 
+
+        if (quizOptional.isEmpty()){
+            return new ResponseEntity<>("Quiz with the provided ID does not exist!",HttpStatus.BAD_REQUEST);
+        }else {
+            Quiz selectedQuiz = quizOptional.get();
+            return new ResponseEntity<>(selectedQuiz.getQuestions(), HttpStatus.OK); 
+        }
+                
     }
 
     //Get category by Id
     @GetMapping("/categories/{id}")
     @ResponseBody
-    public Optional<Category> getCategoryById(@PathVariable Long id) {
-        return categoryRepository.findById(id); 
+    public ResponseEntity<?> getCategoryById(@PathVariable Long id) {
+        Optional<Category> catOptional = categoryRepository.findById(id); 
+
+        if (catOptional.isEmpty()){
+            return new ResponseEntity<>("Category with the provided ID does not exist", HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>(catOptional.get(), HttpStatus.OK) ; 
+        }
     }
 
     //Get quizzes of a category
-    //Work for now but require error messages logging 
     @GetMapping("/categories/{id}/quizzes")
     @ResponseBody
-    public ResponseEntity<List<Quiz>> getQuizByCategoryId(@PathVariable Long id) {
-        return categoryRepository.findById(id)
-                .map(category -> new ResponseEntity<>(category.getQuizzes(), HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<?> getQuizByCategoryId(@PathVariable Long id) {
+        Optional<Category> catOptional = categoryRepository.findById(id); 
+
+        if (catOptional.isEmpty()){
+            return new ResponseEntity<>("Category with the provided ID does not exist", HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>(catOptional.get().getQuizzes(),HttpStatus.OK);
+        }
     }
     
     // Submit answer for a question
@@ -105,13 +124,13 @@ public class ApiController {
         // Validate the question exists
         Optional<Question> questionOptional = questionRepository.findById(questionId);        
         if (questionOptional.isEmpty()) {
-            return new ResponseEntity<>("Question not found",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Question with the provided ID not found",HttpStatus.NOT_FOUND);
         }
         Question question = questionOptional.get();
 
         // Validate the quiz is published
         if (!question.getQuiz().isPublished()) {
-            return new ResponseEntity<>("Quiz is not published", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Quiz with the provided ID is not published", HttpStatus.BAD_REQUEST);
         }
 
         // Validate the answer option ID is provided and exists
@@ -145,7 +164,7 @@ public class ApiController {
         // Validate the quiz exists and is published
         Optional<Quiz> quizOptional = quizRepository.findById(quizId);
         if (quizOptional.isEmpty()) {
-            return new ResponseEntity<>("Quiz not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Quiz with the provided ID not found", HttpStatus.NOT_FOUND);
         }
 
         Quiz quiz = quizOptional.get();
