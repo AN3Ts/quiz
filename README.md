@@ -20,6 +20,11 @@
 The application is deployed and accessible at:  
 [Quiz Application Deployment](https://quiz-git-quiz.2.rahtiapp.fi/quizzes/showQuizzes)
 
+## API Documentation
+
+The Swagger UI for the API documentation is available at:  
+[Swagger UI](https://quiz-git-quiz.2.rahtiapp.fi/swagger-ui/index.html)
+
 ## Teacher Dashboard Features
 
 ### Quiz Management
