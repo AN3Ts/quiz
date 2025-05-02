@@ -2,6 +2,7 @@ import { AgGridReact } from "ag-grid-react";
 import { ModuleRegistry } from "ag-grid-community";
 import { ClientSideRowModelModule } from "ag-grid-community";
 import { Typography, Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
 
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
@@ -10,6 +11,7 @@ export default function Categories() {
   const { data: categories } = useFetchData(
     import.meta.env.VITE_API_URL + "categories"
   );
+  const navigate = useNavigate();
 
   console.log(categories);
 
@@ -22,7 +24,11 @@ export default function Categories() {
       cellRenderer: (param) => {
         return (
           <a
-            href={`/categories/${param.data.id}`}
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(`/categories/${param.data.id}`);
+            }}
             style={{ textDecoration: "underline", color: "#1976d2" }}
           >
             {param.value}
