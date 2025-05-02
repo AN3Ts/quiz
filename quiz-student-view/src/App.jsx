@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import Categories from "./screens/Categories";
 import Quizzes from "./screens/Quizzes";
+import Questions from "./screens/Questions";
 
 function App() {
   return (
@@ -25,14 +26,28 @@ function App() {
             >
               Quizzer
             </Typography>
-            <Button color="inherit" component={Link} to="/" sx={{'&:hover': {
-              color: "#ffffff"
-            }}}>
+            <Button
+              color="inherit"
+              component={Link}
+              to="/"
+              sx={{
+                "&:hover": {
+                  color: "#ffffff",
+                },
+              }}
+            >
               Quizz
             </Button>
-            <Button color="inherit" component={Link} to="/categories" sx={{'&:hover': {
-              color: "#ffffff"
-            }}}>
+            <Button
+              color="inherit"
+              component={Link}
+              to="/categories"
+              sx={{
+                "&:hover": {
+                  color: "#ffffff",
+                },
+              }}
+            >
               Categories
             </Button>
           </Toolbar>
@@ -43,6 +58,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Quizzes />} />
             <Route path="/categories" element={<Categories />} />
+            <Route path="/questions/:id" element={<Questions />} />
           </Routes>
         </Box>
       </Box>
