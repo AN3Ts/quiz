@@ -4,6 +4,7 @@ import "./App.css";
 import Categories from "./screens/Categories";
 import Quizzes from "./screens/Quizzes";
 import Questions from "./screens/Questions";
+import CategoryQuizzes from "./screens/CategoryQuizzes";
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
             <Route path="/" element={<Quizzes />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/questions/:id" element={<Questions />} />
+            <Route path="/categories/:id" element={<CategoryQuizzes />} />
           </Routes>
         </Box>
       </Box>
