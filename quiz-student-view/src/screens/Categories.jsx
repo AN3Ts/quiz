@@ -7,15 +7,21 @@ import useFetchData from "../hooks/useFetchData";
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 export default function Categories() {
-  const {data: categories} = useFetchData(
+  const { data: categories } = useFetchData(
     import.meta.env.VITE_API_URL + "categories"
-  ); 
-  
-  console.log(categories); 
+  );
+
+  console.log(categories);
 
   const colDefs = [
-    { headerName:"Category Name", field: "name" },
-    { headerName:"Category Description",field: "description" },
+    {
+      headerName: "Category Name",
+      field: "name",
+      cellRenderer: (param) => {
+        return <a href={`/categories/${param.data.id}`}>{param.value}</a>;
+      },
+    },
+    { headerName: "Category Description", field: "description" },
   ];
 
   return (
@@ -26,6 +32,7 @@ export default function Categories() {
           rowData={categories}
           columnDefs={colDefs}
           defaultColDef={{ flex: 1, resizable: true }}
+          suppressCellFocus={true}
         />
       </div>
     </>
