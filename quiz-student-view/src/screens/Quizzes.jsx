@@ -7,7 +7,7 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 
 ModuleRegistry.registerModules([ClientSideRowModelModule, ValidationModule]);
 
-const Quizzes = () => {
+export default function Quizzes() {
   const { data: quizzes } = useFetchData(
     import.meta.env.VITE_API_URL + "quizzes"
   );
@@ -38,4 +38,3 @@ const Quizzes = () => {
   );
 };
 
-export default Quizzes;
