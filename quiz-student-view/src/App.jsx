@@ -25,10 +25,14 @@ function App() {
             >
               Quizzer
             </Typography>
-            <Button color="inherit" component={Link} to="/">
+            <Button color="inherit" component={Link} to="/" sx={{'&:hover': {
+              color: "#ffffff"
+            }}}>
               Quizz
             </Button>
-            <Button color="inherit" component={Link} to="/categories">
+            <Button color="inherit" component={Link} to="/categories" sx={{'&:hover': {
+              color: "#ffffff"
+            }}}>
               Categories
             </Button>
           </Toolbar>
