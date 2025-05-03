@@ -1,19 +1,13 @@
 import { useParams } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
-import {
-  Typography,
-  Box,
-  Paper,
-  List,
-  ListItem,
-  ListItemText,
-} from "@mui/material";
+import { Typography, Box, Paper } from "@mui/material";
 import dayjs from "dayjs";
 
 export default function Questions() {
   const { id } = useParams(); // quiz ID
   const { data: quizzes } = useFetchData(
-    `https://quiz-git-quiz.2.rahtiapp.fi/api/quizzes/${id}`
+    import.meta.env.VITE_API_URL + `quizzes/${id}`
+    // import.meta.env.VITE_API_URL_LOCAL + `quizzes/${id}`
   );
 
   // Handle loading or missing data
