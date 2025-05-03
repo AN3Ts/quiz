@@ -1,10 +1,7 @@
 import { AgGridReact } from "ag-grid-react";
-import { ModuleRegistry } from "ag-grid-community";
-import { ClientSideRowModelModule } from "ag-grid-community";
 import { Typography, Box } from "@mui/material";
 import useFetchData from "../hooks/useFetchData";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 
@@ -12,8 +9,12 @@ export default function CategoryQuizzes() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data: categoriesQuizzes } = useFetchData(
-    import.meta.env.VITE_API_URL + "categories/" + id + "/quizzes"
+    import.meta.env.VITE_API_URL + `categories/${id}/quizzes`
+    // import.meta.env.VITE_API_URL_LOCAL + `categories/${id}/quizzes`
   );
+
+  console.log(categoriesQuizzes);
+
   const colDefs = [
     {
       headerName: "Name",
