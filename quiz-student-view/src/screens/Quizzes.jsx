@@ -1,12 +1,13 @@
 import useFetchData from "../hooks/useFetchData";
 import { AgGridReact } from "ag-grid-react";
-import { ModuleRegistry } from "ag-grid-community";
 import {
+  ModuleRegistry,
   ClientSideRowModelModule,
   ValidationModule,
   TextFilterModule,
+  PaginationModule,
 } from "ag-grid-community";
-import { Typography, Box, Paper } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import dayjs from "dayjs";
 import "./Quizzes.css";
@@ -17,11 +18,13 @@ ModuleRegistry.registerModules([
   ClientSideRowModelModule,
   ValidationModule,
   TextFilterModule,
+  PaginationModule,
 ]);
 
 export default function Quizzes() {
   const { data: quizzes } = useFetchData(
     import.meta.env.VITE_API_URL + "quizzes"
+    // import.meta.env.VITE_API_URL_LOCAL + "quizzes"
   );
 
   console.log(quizzes);
@@ -103,7 +106,7 @@ export default function Quizzes() {
             filter: "agTextColumnFilter",
           }}
           pagination={true}
-          paginationPageSize={10}
+          paginationPageSize={20}
         />
       </div>
     </Box>
