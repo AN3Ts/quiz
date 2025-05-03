@@ -123,7 +123,7 @@ public class ApiController {
         return new ResponseEntity<>(catOptional.get(), HttpStatus.OK);
     }
 
-    @Operation(summary = "Get quizzes for a category", description = "Retrieve all quizzes for a specific category")
+    @Operation(summary = "Get published quizzes for a category", description = "Retrieve all published quizzes for a specific category")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Quizzes retrieved successfully"),
             @ApiResponse(responseCode = "400", description = "Category with the provided ID does not exist")
@@ -136,7 +136,9 @@ public class ApiController {
         if (catOptional.isEmpty()) {
             return new ResponseEntity<>("Category with the provided ID does not exist", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(catOptional.get().getQuizzes(), HttpStatus.OK);
+
+        List<Quiz> publishedQuizzes = catOptional.get().getQuizzes().stream().filter(Quiz::isPublished).toList(); 
+        return new ResponseEntity<>(publishedQuizzes, HttpStatus.OK);
     }
 
     @Operation(summary = "Submit an answer for a question", description = "Submit an answer for a specific question")
