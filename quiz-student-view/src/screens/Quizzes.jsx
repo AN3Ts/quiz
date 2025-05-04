@@ -84,6 +84,25 @@ export default function Quizzes() {
         return params.value ? dayjs(params.value).format("DD.MM.YYYY") : "";
       },
     },
+    {
+      headerName: 'Result',   
+      cellRenderer: (params) => {
+        return (
+          <a
+            href='#'
+            onClick={(e) => {
+              e.preventDefault(); 
+              navigate(`quizzes/${params.data.id}/result`)
+            }}
+            style={{
+              color: "#1976d2",
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
+          >View results</a>
+        )
+      }
+    }
   ];
 
   return (
