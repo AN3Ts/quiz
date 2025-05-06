@@ -13,7 +13,6 @@ import dayjs from "dayjs";
 import "./Quizzes.css";
 import { useNavigate } from "react-router-dom";
 
-// Register AG Grid modules
 ModuleRegistry.registerModules([
   ClientSideRowModelModule,
   ValidationModule,
@@ -26,8 +25,6 @@ export default function Quizzes() {
     import.meta.env.VITE_API_URL + "quizzes"
     // import.meta.env.VITE_API_URL_LOCAL + "quizzes"
   );
-
-  console.log(quizzes);
 
   const navigate = useNavigate();
 
@@ -80,29 +77,30 @@ export default function Quizzes() {
       sortable: true,
       filter: "agTextColumnFilter",
       valueFormatter: (params) => {
-        // Format the date using Day.js
         return params.value ? dayjs(params.value).format("DD.MM.YYYY") : "";
       },
     },
     {
-      headerName: 'Result',   
+      headerName: "Result",
       cellRenderer: (params) => {
         return (
           <a
-            href='#'
+            href="#"
             onClick={(e) => {
-              e.preventDefault(); 
-              navigate(`quizzes/${params.data.id}/result`)
+              e.preventDefault();
+              navigate(`quizzes/${params.data.id}/result`);
             }}
             style={{
               color: "#1976d2",
               textDecoration: "underline",
               cursor: "pointer",
             }}
-          >View results</a>
-        )
-      }
-    }
+          >
+            View results
+          </a>
+        );
+      },
+    },
   ];
 
   return (

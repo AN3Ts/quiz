@@ -13,8 +13,6 @@ export default function CategoryQuizzes() {
     // import.meta.env.VITE_API_URL_LOCAL + `categories/${id}/quizzes`
   );
 
-  console.log(categoriesQuizzes);
-
   const colDefs = [
     {
       headerName: "Name",

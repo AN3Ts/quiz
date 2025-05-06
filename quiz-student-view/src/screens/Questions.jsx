@@ -14,7 +14,7 @@ import { useState } from "react";
 import useMessage from "../hooks/useMessage";
 
 export default function Questions() {
-  const { id } = useParams(); // quiz ID
+  const { id } = useParams();
   const { data: quizzes } = useFetchData(
     import.meta.env.VITE_API_URL + `quizzes/${id}`
     // import.meta.env.VITE_API_URL_LOCAL + `quizzes/${id}`
@@ -66,7 +66,6 @@ export default function Questions() {
     }
   };
 
-  // Handle loading or missing data
   if (!quizzes) {
     return (
       <Box sx={{ padding: 3 }}>

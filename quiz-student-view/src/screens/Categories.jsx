@@ -14,8 +14,6 @@ export default function Categories() {
   );
   const navigate = useNavigate();
 
-  console.log(categories);
-
   const colDefs = [
     {
       headerName: "Category Name",

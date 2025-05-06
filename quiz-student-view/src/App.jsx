@@ -38,7 +38,7 @@ function App() {
                 },
               }}
             >
-              Quizz
+              Quizzes
             </Button>
             <Button
               color="inherit"
