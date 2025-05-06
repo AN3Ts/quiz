@@ -87,3 +87,47 @@ The Swagger UI for the API documentation is available at:
 - Write a review for a quiz.
 - View reviews from other students.
 - Edit and delete own reviews.
+
+---
+
+## Data Model
+
+```mermaid
+  erDiagram
+
+    CATEGORY {
+      int id
+      string name
+      string description
+    }
+    QUIZ {
+      int id
+      string name
+      string description
+      string courseCode
+      boolean published
+      date createdDate
+      int category_id
+    }
+    QUESTION {
+      int id
+      string questionText
+      string difficulty
+      int quiz_id
+    }
+    ANSWER {
+      int id
+      string answerText
+      boolean isCorrect
+      int question_id
+    }
+    STUDENT_ANSWER {
+      int id
+      int answer_id
+    }
+
+    CATEGORY ||--o{ QUIZ : CONTAINS
+    QUIZ ||--o{ QUESTION : CONTAINS
+    QUESTION ||--o{ ANSWER : CONTAINS
+    ANSWER ||--o{ STUDENT_ANSWER: CONTAINS
+```
