@@ -17,8 +17,11 @@
 
 ## Deployment
 
-The application is deployed and accessible at:  
-[Quiz Application Deployment](https://quiz-git-quiz.2.rahtiapp.fi/quizzes/showQuizzes)
+The teachers' view is deployed and accessible at:  
+[Teacher Application](https://quiz-git-quiz.2.rahtiapp.fi/quizzes/showQuizzes)
+
+The students' view is deployed and accessible at:
+[Student Application](https://quiz-zfde.onrender.com/)
 
 ## API Documentation
 
