@@ -23,6 +23,8 @@ import com.example.quizz.domain.Question;
 import com.example.quizz.domain.QuestionRepository;
 import com.example.quizz.domain.Quiz;
 import com.example.quizz.domain.QuizRepository;
+import com.example.quizz.domain.Review;
+import com.example.quizz.domain.ReviewRepository;
 import com.example.quizz.domain.StudentAnswer;
 import com.example.quizz.domain.StudentAnswerRepository;
 
@@ -34,6 +36,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import com.example.quizz.dto.CreateAnswerOptionDTO;
 import com.example.quizz.dto.QuestionResultDTO;
+import com.example.quizz.dto.ReviewDTO;
 
 @RestController
 @RequestMapping("/api")
@@ -51,6 +54,8 @@ public class ApiController {
     private AnswerRepository answerRepository;
     @Autowired
     private StudentAnswerRepository studentAnswerRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     @Operation(summary = "Get all published quizzes", description = "Retrieve a list of all published quizzes")
     @ApiResponses(value = {
@@ -137,7 +142,7 @@ public class ApiController {
             return new ResponseEntity<>("Category with the provided ID does not exist", HttpStatus.BAD_REQUEST);
         }
 
-        List<Quiz> publishedQuizzes = catOptional.get().getQuizzes().stream().filter(Quiz::isPublished).toList(); 
+        List<Quiz> publishedQuizzes = catOptional.get().getQuizzes().stream().filter(Quiz::isPublished).toList();
         return new ResponseEntity<>(publishedQuizzes, HttpStatus.OK);
     }
 
@@ -219,5 +224,56 @@ public class ApiController {
         }
 
         return new ResponseEntity<>(results, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Add a review for a quiz", description = "Submit a review for a specific quiz")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Review added successfully"),
+            @ApiResponse(responseCode = "404", description = "Quiz not found")
+    })
+    @PostMapping("/quizzes/{quizId}/reviews")
+    public ResponseEntity<ReviewDTO> addReviewForQuiz(@PathVariable Long quizId, @RequestBody Review review) {
+        Optional<Quiz> quizOptional = quizRepository.findById(quizId);
+        if (quizOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        Quiz quiz = quizOptional.get();
+        review.setQuiz(quiz);
+        Review savedReview = reviewRepository.save(review);
+
+        ReviewDTO reviewDTO = new ReviewDTO(
+                savedReview.getId(),
+                savedReview.getContent(),
+                savedReview.getNickname(),
+                savedReview.getRating(),
+                savedReview.getCreatedDate());
+
+        return new ResponseEntity<>(reviewDTO, HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "Get all reviews for a quiz", description = "Retrieve all reviews for a specific quiz")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Reviews retrieved successfully"),
+            @ApiResponse(responseCode = "404", description = "Quiz not found")
+    })
+    @GetMapping("/quizzes/{quizId}/reviews")
+    public ResponseEntity<List<ReviewDTO>> getReviewsForQuiz(@PathVariable Long quizId) {
+        Optional<Quiz> quizOptional = quizRepository.findById(quizId);
+        if (quizOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        List<Review> reviews = quizOptional.get().getReviews();
+        List<ReviewDTO> reviewDTOs = reviews.stream()
+                .map(review -> new ReviewDTO(
+                        review.getId(),
+                        review.getContent(),
+                        review.getNickname(),
+                        review.getRating(),
+                        review.getCreatedDate()))
+                .toList();
+
+        return new ResponseEntity<>(reviewDTOs, HttpStatus.OK);
     }
 }
