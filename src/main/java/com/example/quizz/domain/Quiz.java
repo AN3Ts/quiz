@@ -44,13 +44,17 @@ public class Quiz {
     private boolean published;
 
     @ManyToOne
-    @JoinColumn(name="category_id")
-    //@JsonBackReference
-    private Category category; 
+    @JoinColumn(name = "category_id")
+    // @JsonBackReference
+    private Category category;
 
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference // to manage the API, avoid looping of parent-child
     private List<Question> questions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Review> reviews = new ArrayList<>();
 
     // Getters and Setters
     public Long getId() {
@@ -108,6 +112,7 @@ public class Quiz {
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
+
     public Category getCategory() {
         return category;
     }
@@ -115,6 +120,14 @@ public class Quiz {
     public void setCategory(Category category) {
         this.category = category;
         category.getQuizzes().add(this);
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
 }
