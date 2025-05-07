@@ -14,6 +14,7 @@
 ## Retrospective
 
 [Sprint 1](https://edu.flinga.fi/s/EH4Y23J)
+[Sprint 2](https://edu.flinga.fi/s/EY8K7BT)
 
 ## Deployment
 
