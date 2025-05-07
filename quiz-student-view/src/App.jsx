@@ -6,6 +6,8 @@ import Quizzes from "./screens/Quizzes";
 import Questions from "./screens/Questions";
 import CategoryQuizzes from "./screens/CategoryQuizzes";
 import Results from "./screens/Results";
+import Reviews from "./screens/Reviews";
+import ReviewSubmitForm from "./screens/ReviewSubmitForm";
 
 function App() {
   return (
@@ -63,6 +65,11 @@ function App() {
             <Route path="/questions/:id" element={<Questions />} />
             <Route path="/categories/:id" element={<CategoryQuizzes />} />
             <Route path="/quizzes/:id/result" element={<Results />} />
+            <Route path="/quizzes/:id/reviews" element={<Reviews />} />
+            <Route
+              path="/quizzes/:id/submit-review"
+              element={<ReviewSubmitForm />}
+            />
           </Routes>
         </Box>
       </Box>

@@ -101,6 +101,23 @@ export default function Quizzes() {
         );
       },
     },
+    {
+      headerName: "Reviews",
+      cellRenderer: (params) => {
+        return (
+          <button
+            onClick={() => navigate(`/quizzes/${params.data.id}/reviews`)}
+            style={{
+              color: "#1976d2",
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
+          >
+            View Reviews
+          </button>
+        );
+      },
+    },
   ];
 
   return (
