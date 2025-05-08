@@ -9,8 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,16 +30,14 @@ import com.example.quizz.domain.Review;
 import com.example.quizz.domain.ReviewRepository;
 import com.example.quizz.domain.StudentAnswer;
 import com.example.quizz.domain.StudentAnswerRepository;
+import com.example.quizz.dto.CreateAnswerOptionDTO;
+import com.example.quizz.dto.QuestionResultDTO;
+import com.example.quizz.dto.ReviewDTO;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import com.example.quizz.dto.CreateAnswerOptionDTO;
-import com.example.quizz.dto.QuestionResultDTO;
-import com.example.quizz.dto.ReviewDTO;
 
 @RestController
 @RequestMapping("/api")
@@ -276,4 +277,53 @@ public class ApiController {
 
         return new ResponseEntity<>(reviewDTOs, HttpStatus.OK);
     }
+
+    @Operation(summary = "Delete a review by ID", description = "Delete a specific review by its ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Review deleted successfully"),
+            @ApiResponse(responseCode = "404", description = "Review not found")
+    })
+    @DeleteMapping("/quizzes/{quizId}/reviews/{reviewId}")
+    public ResponseEntity<String> deleteReview(@PathVariable Long quizId, @PathVariable Long reviewId) {
+        Optional<Review> reviewOptional = reviewRepository.findById(reviewId);
+        if (reviewOptional.isEmpty()) {
+            return new ResponseEntity<>("Review not found", HttpStatus.NOT_FOUND);
+        }
+
+        Review review = reviewOptional.get();
+        if (!review.getQuiz().getId().equals(quizId)) {
+            return new ResponseEntity<>("Review does not belong to the specified quiz", HttpStatus.BAD_REQUEST);
+        }
+
+        reviewRepository.delete(review);
+        return new ResponseEntity<>("Review deleted successfully", HttpStatus.OK);
+    }
+
+    @Operation(summary = "Get a review by ID", description = "Retrieve a specific review by its ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Review retrieved successfully"),
+            @ApiResponse(responseCode = "404", description = "Review not found")
+    })
+    @GetMapping("/quizzes/{quizId}/reviews/{reviewId}")
+    public ResponseEntity<ReviewDTO> getReviewById(@PathVariable Long quizId, @PathVariable Long reviewId) {
+        Optional<Review> reviewOptional = reviewRepository.findById(reviewId);
+        if (reviewOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        Review review = reviewOptional.get();
+        if (!review.getQuiz().getId().equals(quizId)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        ReviewDTO reviewDTO = new ReviewDTO(
+                review.getId(),
+                review.getContent(),
+                review.getNickname(),
+                review.getRating(),
+                review.getCreatedDate());
+
+        return new ResponseEntity<>(reviewDTO, HttpStatus.OK);
+    }
+
 }
