@@ -8,7 +8,11 @@ import {
   CardContent,
   Grid,
   Rating,
+  CardActions,
+  IconButton
 } from "@mui/material";
+import Edit from '@mui/icons-material/Edit';
+import Delete from '@mui/icons-material/Delete'; 
 import useFetchData from "../hooks/useFetchData";
 
 const Reviews = () => {
@@ -83,6 +87,15 @@ const Reviews = () => {
                     {new Date(review.createdDate).toLocaleDateString()}
                   </Typography>
                 </CardContent>
+                <CardActions disableSpacing>
+                  <IconButton aria-label="Delete Review">
+                    <Delete />
+                  </IconButton>
+                  <IconButton aria-label="Edit Review">
+                    <Edit />
+                  </IconButton>
+                  
+                </CardActions>
               </Card>
             </Grid>
           ))}
