@@ -56,6 +56,26 @@ public class Quiz {
     @JsonManagedReference
     private List<Review> reviews = new ArrayList<>();
 
+    public Quiz() {
+        // Default constructor
+    }
+
+  
+    public Quiz(
+            @NotBlank(message = "Name cannot be blank") @Size(max = 100, message = "Name must not exceed 100 characters") String name,
+            @Size(max = 255, message = "Description must not exceed 255 characters") String description,
+            @NotBlank(message = "Course code cannot be blank") @Pattern(regexp = "^[A-Z0-9]{8,10}$", message = "Course code must be 8-10 characters long and contain only uppercase letters and digits") String courseCode,
+            boolean published, Category category, List<Question> questions, List<Review> reviews) {
+        this.name = name;
+        this.description = description;
+        this.courseCode = courseCode;
+        this.published = published;
+        this.category = category;
+        this.questions = questions;
+        this.reviews = reviews;
+    }
+
+
     // Getters and Setters
     public Long getId() {
         return id;
