@@ -13,7 +13,7 @@
 
 ## Retrospective
 
-[Sprint 1](https://edu.flinga.fi/s/EH4Y23J)
+[Sprint 1](https://edu.flinga.fi/s/EH4Y23J)  
 [Sprint 2](https://edu.flinga.fi/s/EY8K7BT)
 
 ## Deployment
@@ -21,7 +21,7 @@
 The teachers' view is deployed and accessible at:  
 [Teacher Application](https://quiz-git-quiz.2.rahtiapp.fi/quizzes/showQuizzes)
 
-The students' view is deployed and accessible at:
+The students' view is deployed and accessible at:  
 [Student Application](https://quiz-zfde.onrender.com/)
 
 ## API Documentation
@@ -29,11 +29,13 @@ The students' view is deployed and accessible at:
 The Swagger UI for the API documentation is available at:  
 [Swagger UI](https://quiz-git-quiz.2.rahtiapp.fi/swagger-ui/index.html)
 
+---
+
 ## Teacher Dashboard Features
 
 ### Quiz Management
 
-- Add quizzes with:`
+- Add quizzes with:
   - **Name** (e.g., “The Scrum framework”).
   - **Description**.
   - **Course code**.
@@ -135,3 +137,62 @@ The Swagger UI for the API documentation is available at:
     QUESTION ||--o{ ANSWER : CONTAINS
     ANSWER ||--o{ STUDENT_ANSWER: CONTAINS
 ```
+
+---
+
+## Developer Guide
+
+### Starting the Frontend Application
+
+To start the frontend application locally, follow these steps:
+
+1. **Navigate to the frontend directory:**
+   ```bash
+   cd quiz-student-view
+   ```
+
+2. **Install dependencies:**
+   Ensure you have Node.js and npm installed. Then, run:
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Access the application:**
+   Open your browser and navigate to:
+   ```
+   http://localhost:5173
+   ```
+
+   The frontend application should now be running locally.
+
+---
+
+### Running Tests
+
+To run the backend tests locally, follow these steps:
+
+1. **Navigate to the project root directory:**
+   ```bash
+   cd ../quizz
+   ```
+
+2. **Run the tests using Maven:**
+   ```bash
+   ./mvnw test
+   ```
+
+3. **View the test results:**
+   - The test results will be displayed in the terminal.
+   - Detailed reports can be found in the `target/surefire-reports` directory.
+
+4. **Debugging Tests:**
+   - If a test fails, re-run Maven with debug logging enabled:
+     ```bash
+     ./mvnw test -X
+     ```
+
