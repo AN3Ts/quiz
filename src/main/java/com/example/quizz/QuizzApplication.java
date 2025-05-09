@@ -7,6 +7,8 @@ import com.example.quizz.domain.Question;
 import com.example.quizz.domain.Question.Difficulty;
 import com.example.quizz.domain.Quiz;
 import com.example.quizz.domain.QuizRepository;
+import com.example.quizz.domain.Review;
+import com.example.quizz.domain.ReviewRepository;
 import com.example.quizz.domain.QuestionRepository;
 import com.example.quizz.domain.Category;
 
@@ -24,7 +26,7 @@ public class QuizzApplication {
 
     @Bean
     public CommandLineRunner loadData(QuizRepository quizRepository, QuestionRepository questionRepository,
-            AnswerRepository answerRepository, CategoryRepository categoryRepository) {
+            AnswerRepository answerRepository, CategoryRepository categoryRepository, ReviewRepository reviewRepository) {
         return (args) -> {
             //quizRepository.deleteAll();
             //categoryRepository.deleteAll();
@@ -150,6 +152,30 @@ public class QuizzApplication {
                     answerRepository.save(answer7);
                     answerRepository.save(answer8);
                     answerRepository.save(answer9);
+
+                    // Add mock reviews for quiz1
+                    Review review1 = new Review();
+                    review1.setContent("Great quiz! Very informative.");
+                    review1.setNickname("JohnDoe");
+                    review1.setRating(5);
+                    review1.setQuiz(quiz1);
+
+                    Review review2 = new Review();
+                    review2.setContent("Good quiz, but some questions were tricky.");
+                    review2.setNickname("JaneSmith");
+                    review2.setRating(4);
+                    review2.setQuiz(quiz1);
+
+                    Review review3 = new Review();
+                    review3.setContent("Not bad, but could use more examples.");
+                    review3.setNickname("Student123");
+                    review3.setRating(3);
+                    review3.setQuiz(quiz1);
+
+                    // Save reviews to the database
+                    reviewRepository.save(review1);
+                    reviewRepository.save(review2);
+                    reviewRepository.save(review3);
 
                     System.out.println("question1's answers: " + question1.getAnswers());
                     System.out.println("question3's answers: " + question3.getAnswers());
