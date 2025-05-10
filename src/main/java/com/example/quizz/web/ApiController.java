@@ -294,39 +294,41 @@ public class ApiController {
             @ApiResponse(responseCode = "200", description = "Review deleted successfully"),
             @ApiResponse(responseCode = "404", description = "Review not found")
     })
-    @DeleteMapping("/quizzes/{quizId}/reviews/{reviewId}")
-    public ResponseEntity<String> deleteReview(@PathVariable Long quizId, @PathVariable Long reviewId) {
+    @DeleteMapping("/reviews/{reviewId}")
+    public ResponseEntity<String> deleteReview(@PathVariable Long reviewId) {
         Optional<Review> reviewOptional = reviewRepository.findById(reviewId);
         if (reviewOptional.isEmpty()) {
             return new ResponseEntity<>("Review not found", HttpStatus.NOT_FOUND);
         }
 
         Review review = reviewOptional.get();
+
+        /*
         if (!review.getQuiz().getId().equals(quizId)) {
             return new ResponseEntity<>("Review does not belong to the specified quiz", HttpStatus.BAD_REQUEST);
-        }
+        }*/
 
         reviewRepository.delete(review);
         return new ResponseEntity<>("Review deleted successfully", HttpStatus.OK);
     }
 
-    //get a review by quiz and reviewId
+    //get a review by reviewId
     @Operation(summary = "Get a review by ID", description = "Retrieve a specific review by its ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Review retrieved successfully"),
             @ApiResponse(responseCode = "404", description = "Review not found")
     })
-    @GetMapping("/quizzes/{quizId}/reviews/{reviewId}")
-    public ResponseEntity<ReviewDTO> getReviewById(@PathVariable Long quizId, @PathVariable Long reviewId) {
+    @GetMapping("reviews/{reviewId}")
+    public ResponseEntity<ReviewDTO> getReviewById(@PathVariable Long reviewId) {
         Optional<Review> reviewOptional = reviewRepository.findById(reviewId);
         if (reviewOptional.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         Review review = reviewOptional.get();
-        if (!review.getQuiz().getId().equals(quizId)) {
+        /*if (!review.getQuiz().getId().equals(quizId)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        }*/
 
         ReviewDTO reviewDTO = new ReviewDTO(
                 review.getId(),
@@ -344,8 +346,8 @@ public class ApiController {
             @ApiResponse(responseCode = "200", description = "Edit to the review was created successfully"),
             @ApiResponse(responseCode = "404", description = "Review with the ID not found")
     })
-    @PostMapping("/quizzes/{quizId}/reviews/{reviewId}")
-    public ResponseEntity<ReviewDTO> editReview(@PathVariable Long quizId, @PathVariable Long reviewId, @RequestBody Review review) {
+    @PostMapping("/reviews/{reviewId}")
+    public ResponseEntity<ReviewDTO> editReview(@PathVariable Long reviewId, @RequestBody Review review) {
 
         Optional<Review> reviewOptional = reviewRepository.findById(reviewId);
         if (reviewOptional.isEmpty()) {
@@ -353,9 +355,6 @@ public class ApiController {
         }
 
         Review currrentReview = reviewOptional.get();
-        if (!currrentReview.getQuiz().getId().equals(quizId)) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
         
         //Update the review
         currrentReview.setContent(review.getContent());
