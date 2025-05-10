@@ -8,6 +8,7 @@ import CategoryQuizzes from "./screens/CategoryQuizzes";
 import Results from "./screens/Results";
 import Reviews from "./screens/Reviews";
 import ReviewSubmitForm from "./screens/ReviewSubmitForm";
+import ReviewEditForm from "./screens/ReviewEditForm"; 
 
 function App() {
   return (
@@ -70,7 +71,10 @@ function App() {
               path="/quizzes/:id/submit-review"
               element={<ReviewSubmitForm />}
             />
-            
+            <Route
+              path="/reviews/edit/:id"
+              element={<ReviewEditForm />}
+            />
           </Routes>
         </Box>
       </Box>

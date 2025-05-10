@@ -88,11 +88,14 @@ const Reviews = () => {
                   </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                  <IconButton aria-label="Delete Review">
+                  <IconButton aria-label="Delete Review"  >
                     <Delete />
                   </IconButton>
-                  <IconButton aria-label="Edit Review">
-                    <Edit />
+                  <IconButton 
+                    aria-label="Edit Review" 
+                    onClick={()=> navigate(`/reviews/edit/${review.id}`)}
+                  >
+                      <Edit />
                   </IconButton>
                   
                 </CardActions>

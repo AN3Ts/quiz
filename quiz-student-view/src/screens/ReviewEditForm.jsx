@@ -15,63 +15,57 @@ import {
   DialogActions,
 } from "@mui/material";
 
-const ReviewEditForm = ({ onReviewSubmitted }) => {
+const ReviewEditForm = ({ onEditSubmitted }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [quizName, setQuizName] = useState("");
   const [content, setContent] = useState("");
   const [nickname, setNickname] = useState("");
   const [rating, setRating] = useState(1);
-  const [error, setError] = useState("");
   const [showDialog, setShowDialog] = useState(false);
+  const [error, setError]= useState(''); 
 
   useEffect(() => {
-    const fetchQuizDetails = async () => {
+    const fetchReviewById = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}quizzes/${id}`
+          `${import.meta.env.VITE_API_URL}reviews/${id}`
         );
+        
         if (response.ok) {
           const data = await response.json();
-          setQuizName(data.name);
+          setContent(data.content); 
+          setNickname(data.nickname); 
+          setRating(data.rating); 
         }
       } catch (err) {
-        console.error("Error fetching quiz details:", err);
+        console.error("Error fetching review: ", err);
       }
     };
 
-    fetchQuizDetails();
+    fetchReviewById();
   }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!content || !nickname || rating < 1 || rating > 5) {
-      setError("Please fill in all fields and provide a valid rating.");
-      return;
-    }
-
+    
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}quizzes/${id}/reviews`,
+        `${import.meta.env.VITE_API_URL}reviews/${id}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ content, nickname, rating }),
+          body: JSON.stringify({ content, rating }),
         }
       );
 
       if (response.status === 201 || response.ok) {
-        setContent("");
-        setNickname("");
-        setRating(1);
-        setError("");
-        if (onReviewSubmitted) await onReviewSubmitted();
+        if (onEditSubmitted) await onEditSubmitted();
         setShowDialog(true);
       } else {
         const errorText = await response.text();
-        console.error("Review submission failed:", errorText);
-        setError("Failed to submit the review. Please try again.");
+        console.error("Edir submission failed:", errorText);
+        setError("Failed to edit the review. Please try again.");
       }
     } catch (err) {
       console.error("Unexpected error:", err);
@@ -81,7 +75,7 @@ const ReviewEditForm = ({ onReviewSubmitted }) => {
 
   const handleDialogClose = () => {
     setShowDialog(false);
-    navigate(`/quizzes/${id}/reviews`); // Adjust if your Reviews.jsx route is different
+    navigate(-1); // Go back to the previous page
   };
 
   return (
@@ -91,7 +85,7 @@ const ReviewEditForm = ({ onReviewSubmitted }) => {
         gutterBottom
         sx={{ fontWeight: "bold", color: "#1976d2" }}
       >
-        Edit the following review {quizName || "Loading..."}
+        Edit the review by {nickname}: 
       </Typography>
 
       {error && (
@@ -101,15 +95,7 @@ const ReviewEditForm = ({ onReviewSubmitted }) => {
       )}
 
       <form onSubmit={handleSubmit}>
-        <TextField
-          label="Nickname"
-          variant="outlined"
-          fullWidth
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
-          required
-          sx={{ marginBottom: 2 }}
-        />
+        
         <TextField
           label="Review"
           variant="outlined"
@@ -117,8 +103,8 @@ const ReviewEditForm = ({ onReviewSubmitted }) => {
           multiline
           rows={4}
           value={content}
+          //contentEditable={true}
           onChange={(e) => setContent(e.target.value)}
-          required
           sx={{ marginBottom: 2 }}
         />
         <FormLabel component="legend" sx={{ marginBottom: 1 }}>
@@ -146,14 +132,14 @@ const ReviewEditForm = ({ onReviewSubmitted }) => {
           fullWidth
           sx={{ padding: 1 }}
         >
-          Submit Review
+          Edit Review
         </Button>
       </form>
 
       <Dialog open={showDialog} onClose={handleDialogClose}>
         <DialogTitle>Thank You!</DialogTitle>
         <DialogContent>
-          <Typography>Your review has been submitted successfully.</Typography>
+          <Typography>Your review has been edited successfully.</Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose} autoFocus>
@@ -165,4 +151,4 @@ const ReviewEditForm = ({ onReviewSubmitted }) => {
   );
 };
 
-export default ReviewSubmitForm;
+export default ReviewEditForm;
