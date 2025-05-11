@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Typography,
@@ -9,24 +9,56 @@ import {
   Grid,
   Rating,
   CardActions,
-  IconButton
+  IconButton,
 } from "@mui/material";
-import Edit from '@mui/icons-material/Edit';
-import Delete from '@mui/icons-material/Delete'; 
+import Edit from "@mui/icons-material/Edit";
+import Delete from "@mui/icons-material/Delete";
 import useFetchData from "../hooks/useFetchData";
 
 const Reviews = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [quiz, setQuiz] = useState({});
 
-  const { data: quiz } = useFetchData(
-    import.meta.env.VITE_API_URL + `quizzes/${id}`
-  );
+  const handleFetch = async () => {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}quizzes/${id}`);
+      const data = await res.json();
+      setQuiz(data);
+    } catch (err) {
+      console.error("Fetch error:", err);
+    }
+  };
+
+  useEffect(() => {
+    handleFetch();
+  }, [id]);
 
   if (!quiz) {
     return <p>Loading reviews...</p>;
   }
 
+  //Handle delete
+  const handleDelete = async (e, reviewId) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}reviews/${reviewId}`,
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Delete review successfully");
+        handleFetch();
+      }
+    } catch (err) {
+      console.log("Delete error: ", err);
+    }
+  };
+  console.log(quiz);
   // Calculate average rating
   const averageRating =
     quiz.reviews && quiz.reviews.length > 0
@@ -88,16 +120,18 @@ const Reviews = () => {
                   </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                  <IconButton aria-label="Delete Review"  >
+                  <IconButton
+                    aria-label="Delete Review"
+                    onClick={(e) => handleDelete(e, review.id)}
+                  >
                     <Delete />
                   </IconButton>
-                  <IconButton 
-                    aria-label="Edit Review" 
-                    onClick={()=> navigate(`/reviews/edit/${review.id}`)}
+                  <IconButton
+                    aria-label="Edit Review"
+                    onClick={() => navigate(`/reviews/edit/${review.id}`)}
                   >
-                      <Edit />
+                    <Edit />
                   </IconButton>
-                  
                 </CardActions>
               </Card>
             </Grid>
