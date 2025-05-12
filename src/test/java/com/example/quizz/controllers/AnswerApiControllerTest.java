@@ -46,9 +46,10 @@ public class AnswerApiControllerTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        quizRepository.deleteAll();
-        questionRepository.deleteAll();
+        studentAnswerRepository.deleteAll();              
         answerRepository.deleteAll();
+        questionRepository.deleteAll();
+        quizRepository.deleteAll();      
     }
 
     @Test

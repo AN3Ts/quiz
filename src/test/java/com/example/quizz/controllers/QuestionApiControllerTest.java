@@ -4,7 +4,6 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.checkerframework.checker.units.qual.s;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +19,6 @@ import com.example.quizz.domain.QuizRepository;
 import com.example.quizz.domain.StudentAnswerRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
-import java.util.List;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import org.springframework.http.MediaType;
 
@@ -50,9 +45,9 @@ public class QuestionApiControllerTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        quizRepository.deleteAll();
-        questionRepository.deleteAll();
         answerRepository.deleteAll();
+        questionRepository.deleteAll();        
+        quizRepository.deleteAll();       
     }
 
     @Test
@@ -88,13 +83,13 @@ public class QuestionApiControllerTest {
         question1.setQuiz(savedQuiz);
         question1.setQuestionText("1 + 1 = ?");
         question1.setDifficulty(Question.Difficulty.EASY);
-        Question savedQuestion1 = questionRepository.save(question1);
+        questionRepository.save(question1);
 
         Question question2 = new Question();
         question2.setQuiz(savedQuiz);
         question2.setQuestionText("1 + 2 = ?");
         question2.setDifficulty(Question.Difficulty.EASY);
-        Question savedQuestion2 = questionRepository.save(question2);
+        questionRepository.save(question2);
 
         mockMvc.perform(get("/api/quizzes/" + quizId + "/questions")
                 .contentType(MediaType.APPLICATION_JSON))
