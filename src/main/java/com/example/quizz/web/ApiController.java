@@ -111,7 +111,7 @@ public class ApiController {
     public ResponseEntity<?> getQuizQuestions(@PathVariable Long id) {
         Optional<Quiz> quizOptional = quizRepository.findById(id);
         if (quizOptional.isEmpty()) {
-            return new ResponseEntity<>("Quiz with the provided ID does not exist!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Quiz with the provided ID does not exist!", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(quizOptional.get().getQuestions(), HttpStatus.OK);
     }
