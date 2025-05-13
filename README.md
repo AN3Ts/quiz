@@ -151,6 +151,43 @@ The Swagger UI for the API documentation is available at:
 
 ## Developer Guide
 
+### Starting the Backend Application
+
+To start the backend application locally, follow these steps:
+
+1. **Navigate to the backend directory:**
+
+   ```bash
+   cd quizz
+   ```
+
+2. **Ensure you have Java and Maven installed.**
+
+3. **Install dependencies and build the project:**
+
+   ```bash
+   ./mvnw clean install
+   ```
+
+4. **Start the backend server:**
+
+   ```bash
+   ./mvnw spring-boot:run
+   ```
+
+5. **Access the API:**
+   By default, the backend runs at:
+
+   ```bash
+   http://localhost:8080
+   ```
+
+   You can view the API documentation at:
+
+   ```bash
+   https://quiz-git-quiz.2.rahtiapp.fi/swagger-ui/index.html
+   ```
+
 ### Starting the Frontend Application
 
 To start the frontend application locally, follow these steps:
@@ -168,13 +205,20 @@ To start the frontend application locally, follow these steps:
    npm install
    ```
 
-3. **Start the development server:**
+3. **Create .env file:**
+   Create a .env file with the following content. Change 8080 to the port you set up in src/main/resources/application.properties
+
+   ```bash
+   VITE_API_URL=http://localhost:8080/api/
+   ```
+
+4. **Start the development server:**
 
    ```bash
    npm run dev
    ```
 
-4. **Access the application:**
+5. **Access the application:**
    Open your browser and navigate to:
 
    ```
