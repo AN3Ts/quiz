@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   Typography,
@@ -23,7 +23,7 @@ const ReviewEditForm = ({ onEditSubmitted }) => {
   const [nickname, setNickname] = useState("");
   const [rating, setRating] = useState(1);
   const [showDialog, setShowDialog] = useState(false);
-  const [error, setError]= useState(''); 
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchReviewById = async () => {
@@ -31,12 +31,12 @@ const ReviewEditForm = ({ onEditSubmitted }) => {
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}reviews/${id}`
         );
-        
+
         if (response.ok) {
           const data = await response.json();
-          setContent(data.content); 
-          setNickname(data.nickname); 
-          setRating(data.rating); 
+          setContent(data.content);
+          setNickname(data.nickname);
+          setRating(data.rating);
         }
       } catch (err) {
         console.error("Error fetching review: ", err);
@@ -48,7 +48,7 @@ const ReviewEditForm = ({ onEditSubmitted }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}reviews/${id}`,
@@ -75,7 +75,7 @@ const ReviewEditForm = ({ onEditSubmitted }) => {
 
   const handleDialogClose = () => {
     setShowDialog(false);
-    navigate(-1); // Go back to the previous page
+    navigate(-1);
   };
 
   return (
@@ -85,7 +85,7 @@ const ReviewEditForm = ({ onEditSubmitted }) => {
         gutterBottom
         sx={{ fontWeight: "bold", color: "#1976d2" }}
       >
-        Edit the review by {nickname}: 
+        Edit the review by {nickname}:
       </Typography>
 
       {error && (
@@ -95,7 +95,6 @@ const ReviewEditForm = ({ onEditSubmitted }) => {
       )}
 
       <form onSubmit={handleSubmit}>
-        
         <TextField
           label="Review"
           variant="outlined"
@@ -103,7 +102,6 @@ const ReviewEditForm = ({ onEditSubmitted }) => {
           multiline
           rows={4}
           value={content}
-          //contentEditable={true}
           onChange={(e) => setContent(e.target.value)}
           sx={{ marginBottom: 2 }}
         />
