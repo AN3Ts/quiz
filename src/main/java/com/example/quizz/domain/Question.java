@@ -25,7 +25,7 @@ public class Question {
     private Difficulty difficulty;
 
     @ManyToOne
-    @JoinColumn(name = "quiz_id", nullable = false) // Foreign key column in the Question table
+    @JoinColumn(name = "quiz_id", nullable = false)
     @JsonBackReference
     private Quiz quiz;
 
@@ -33,7 +33,6 @@ public class Question {
     @JsonManagedReference
     private List<Answer> answers = new ArrayList<>();
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

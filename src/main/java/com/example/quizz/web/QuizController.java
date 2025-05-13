@@ -21,7 +21,6 @@ public class QuizController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    // Return all quizzes
     @GetMapping("/showQuizzes")
     public String showQuizzesString(Model model) {
         List<Quiz> quizzes = quizRepository.findAll(); 
@@ -29,7 +28,6 @@ public class QuizController {
         return "quizzes";
     }
 
-    // Show the form to add a new quiz
     @GetMapping("/addquiz")
     public String showAddQuizForm(Model model) {
         List<Category> categories = categoryRepository.findAll();
@@ -37,15 +35,12 @@ public class QuizController {
         return "addquiz";
     }
 
-    // Create and save a new quiz
     @PostMapping
     public String createQuiz(@ModelAttribute Quiz quiz) {
         quizRepository.save(quiz);
         return "redirect:/quizzes/showQuizzes"; 
     }
 
-
-    // Delete a quiz by its id
     @GetMapping("/{id}")
     public String deleteQuiz(@PathVariable Long id, Model model) {
         quizRepository.deleteById(id);
@@ -61,7 +56,6 @@ public class QuizController {
         return "redirect:../quizzes/showQuizzes";
     }
 
-    // Get the quiz to be edited and show the edit form
     @GetMapping("/editquiz/{id}")
     public String showEditQuizForm(@PathVariable Long id, Model model) {
         Quiz quiz = quizRepository.findById(id).orElse(null);
@@ -69,7 +63,6 @@ public class QuizController {
         return "editquiz"; 
     }
 
-    // Update the quiz with the new data from the edit form
     @PostMapping("/editquiz/{id}")
     public String updateQuiz(@PathVariable Long id, @ModelAttribute Quiz quiz, Model model) {
         Quiz existingQuiz = quizRepository.findById(id).orElse(null);

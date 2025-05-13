@@ -44,7 +44,6 @@ public class QuestionController {
         return "addquestion";
     }
 
-    
     @PostMapping
     public String createQuestion(@RequestParam Long quizId, @RequestParam String questionText,
             @RequestParam String difficulty) {

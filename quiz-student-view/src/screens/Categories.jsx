@@ -10,7 +10,6 @@ ModuleRegistry.registerModules([ClientSideRowModelModule]);
 export default function Categories() {
   const { data: categories } = useFetchData(
     import.meta.env.VITE_API_URL + "categories"
-    // import.meta.env.VITE_API_URL_LOCAL + "categories"
   );
   const navigate = useNavigate();
 

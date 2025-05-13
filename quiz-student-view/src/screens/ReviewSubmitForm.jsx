@@ -81,7 +81,7 @@ const ReviewSubmitForm = ({ onReviewSubmitted }) => {
 
   const handleDialogClose = () => {
     setShowDialog(false);
-    navigate(`/quizzes/${id}/reviews`); // Adjust if your Reviews.jsx route is different
+    navigate(`/quizzes/${id}/reviews`);
   };
 
   return (

@@ -10,7 +10,6 @@ public class ReviewDTO {
     private int rating;
     private LocalDateTime createdDate;
 
-    // Constructor
     public ReviewDTO() {
     }
 
@@ -22,7 +21,6 @@ public class ReviewDTO {
         this.createdDate = createdDate;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

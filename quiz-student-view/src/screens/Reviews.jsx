@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Typography,
@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import Edit from "@mui/icons-material/Edit";
 import Delete from "@mui/icons-material/Delete";
-import useFetchData from "../hooks/useFetchData";
 
 const Reviews = () => {
   const { id } = useParams();
@@ -32,13 +31,13 @@ const Reviews = () => {
 
   useEffect(() => {
     handleFetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   if (!quiz) {
     return <p>Loading reviews...</p>;
   }
 
-  //Handle delete
   const handleDelete = async (e, reviewId) => {
     e.preventDefault();
     try {
@@ -51,15 +50,13 @@ const Reviews = () => {
       );
 
       if (response.status === 200) {
-        console.log("Delete review successfully");
         handleFetch();
       }
     } catch (err) {
-      console.log("Delete error: ", err);
+      console.error("Delete error: ", err);
     }
   };
-  console.log(quiz);
-  // Calculate average rating
+
   const averageRating =
     quiz.reviews && quiz.reviews.length > 0
       ? quiz.reviews.reduce((sum, r) => sum + r.rating, 0) / quiz.reviews.length
@@ -75,7 +72,6 @@ const Reviews = () => {
         Reviews for Quiz: {quiz.name}
       </Typography>
 
-      {/* Average Rating Display */}
       <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
         <Typography variant="h6" sx={{ mr: 1 }}>
           Average Rating:
@@ -86,7 +82,6 @@ const Reviews = () => {
         </Typography>
       </Box>
 
-      {/* Write Review Button */}
       <Button
         onClick={() => navigate(`/quizzes/${id}/submit-review`)}
         variant="outlined"
@@ -100,7 +95,7 @@ const Reviews = () => {
       ) : (
         <Grid container spacing={2}>
           {quiz.reviews?.map((review) => (
-            <Grid item xs={12} sm={6} md={6} key={review.id}>
+            <Grid key={review.id}>
               <Card sx={{ borderRadius: 2, boxShadow: 3 }}>
                 <CardContent>
                   <Typography variant="h6" sx={{ fontWeight: "bold" }}>

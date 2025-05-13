@@ -24,7 +24,7 @@ public class Answer {
     private Boolean isCorrect;
 
     @ManyToOne
-    @JoinColumn(name = "question_id", nullable = false) // Foreign key column in the Answer table
+    @JoinColumn(name = "question_id", nullable = false)
     @JsonBackReference
     private Question question;
 

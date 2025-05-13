@@ -31,7 +31,6 @@ public class Review {
     @JsonBackReference
     private Quiz quiz;
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

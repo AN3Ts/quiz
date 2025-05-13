@@ -227,8 +227,6 @@ public class ApiController {
         return new ResponseEntity<>(results, HttpStatus.OK);
     }
 
-    // REVIEWS ENDPOINTS
-    // Add review
     @Operation(summary = "Add a review for a quiz", description = "Submit a review for a specific quiz")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Review added successfully"),
@@ -255,7 +253,6 @@ public class ApiController {
         return new ResponseEntity<>(reviewDTO, HttpStatus.CREATED);
     }
 
-    // Get all reviews of a quiz
     @Operation(summary = "Get all reviews for a quiz", description = "Retrieve all reviews for a specific quiz")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Reviews retrieved successfully"),
@@ -281,7 +278,6 @@ public class ApiController {
         return new ResponseEntity<>(reviewDTOs, HttpStatus.OK);
     }
 
-    // Delete a review
     @Operation(summary = "Delete a review by ID", description = "Delete a specific review by its ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Review deleted successfully"),
@@ -296,18 +292,10 @@ public class ApiController {
 
         Review review = reviewOptional.get();
 
-        /*
-         * if (!review.getQuiz().getId().equals(quizId)) {
-         * return new ResponseEntity<>("Review does not belong to the specified quiz",
-         * HttpStatus.BAD_REQUEST);
-         * }
-         */
-
         reviewRepository.delete(review);
         return new ResponseEntity<>("Review deleted successfully", HttpStatus.OK);
     }
 
-    // get a review by reviewId
     @Operation(summary = "Get a review by ID", description = "Retrieve a specific review by its ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Review retrieved successfully"),
@@ -321,11 +309,6 @@ public class ApiController {
         }
 
         Review review = reviewOptional.get();
-        /*
-         * if (!review.getQuiz().getId().equals(quizId)) {
-         * return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-         * }
-         */
 
         ReviewDTO reviewDTO = new ReviewDTO(
                 review.getId(),
@@ -337,7 +320,6 @@ public class ApiController {
         return new ResponseEntity<>(reviewDTO, HttpStatus.OK);
     }
 
-    // Edit a review
     @Operation(summary = "Edit a review by ID", description = "Edit a specific review by its ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Edit to the review was created successfully"),
@@ -353,7 +335,6 @@ public class ApiController {
 
         Review currrentReview = reviewOptional.get();
 
-        // Update the review
         currrentReview.setContent(review.getContent());
         currrentReview.setRating(review.getRating());
         Review updatedReview = reviewRepository.save(currrentReview);
@@ -366,7 +347,5 @@ public class ApiController {
                 updatedReview.getCreatedDate());
 
         return new ResponseEntity<>(reviewDTO, HttpStatus.OK);
-
     }
-
 }

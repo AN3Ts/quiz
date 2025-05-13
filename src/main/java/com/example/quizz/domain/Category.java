@@ -30,7 +30,6 @@ public class Category {
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference
     private List<Quiz> quizzes = new ArrayList<>();
 
     public Long getId() {

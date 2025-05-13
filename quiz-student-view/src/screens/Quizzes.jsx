@@ -23,7 +23,6 @@ ModuleRegistry.registerModules([
 export default function Quizzes() {
   const { data: quizzes } = useFetchData(
     import.meta.env.VITE_API_URL + "quizzes"
-    // import.meta.env.VITE_API_URL_LOCAL + "quizzes"
   );
 
   const navigate = useNavigate();
@@ -96,7 +95,7 @@ export default function Quizzes() {
               cursor: "pointer",
             }}
           >
-            View results
+            View Results
           </a>
         );
       },
@@ -105,8 +104,12 @@ export default function Quizzes() {
       headerName: "Reviews",
       cellRenderer: (params) => {
         return (
-          <button
-            onClick={() => navigate(`/quizzes/${params.data.id}/reviews`)}
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(`/quizzes/${params.data.id}/reviews`);
+            }}
             style={{
               color: "#1976d2",
               textDecoration: "underline",
@@ -114,7 +117,7 @@ export default function Quizzes() {
             }}
           >
             View Reviews
-          </button>
+          </a>
         );
       },
     },

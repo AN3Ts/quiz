@@ -52,8 +52,6 @@ public class QuestionApiControllerTest {
 
     @Test
     void getQuestionsByQuizIdReturnsEmptyListWhenQuizDoesNotHaveQuestions() throws Exception{
-        // save a quiz without questions to the database and send a request. Then, the response should have an empty list
-
         Quiz quiz = new Quiz();
         quiz.setName("Test Quiz");
         quiz.setDescription("Test Description");
@@ -70,8 +68,6 @@ public class QuestionApiControllerTest {
 
     @Test
     public void getQuestionsByQuizIdReturnsListOfQuestionsWhenQuizHasQuestions() throws Exception{
-        //save a quiz with a few questions and answer options to the database and send a request. Then, the response should have a list of the quiz’s questions. Remember to also check, that the response contains the answer options of each question
-
         Quiz quiz = new Quiz();
         quiz.setName("Test Quiz");
         quiz.setDescription("Test Description");
@@ -99,16 +95,10 @@ public class QuestionApiControllerTest {
 
     @Test
     public void getQuestionsByQuizIdReturnsErrorWhenQuizDoesNotExist() throws Exception{
-        //send a request without saving a quiz to the database. Then, the response should have an appropriate HTTP status
         Long nonExistingId = 1212412L;
 
         mockMvc.perform(get("/api/quizzes/" + nonExistingId + "/questions")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound()); 
-    }
-
-
-   
- 
-
+    }  
 }

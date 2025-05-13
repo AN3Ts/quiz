@@ -17,7 +17,6 @@ export default function Questions() {
   const { id } = useParams();
   const { data: quizzes } = useFetchData(
     import.meta.env.VITE_API_URL + `quizzes/${id}`
-    // import.meta.env.VITE_API_URL_LOCAL + `quizzes/${id}`
   );
 
   const { handleMessage, MessageSnackbar } = useMessage();

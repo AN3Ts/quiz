@@ -46,7 +46,6 @@ public class CategoriesApiControllerTest {
 
     @Test
     void saveThreeCategoriesReturnSizeOfCategoriesList() throws Exception {
-        // save 3 categories to the database. The response should return 3
         Category category1 = new Category();
         category1.setName("Test Category 1");
         category1.setDescription("Test Description 1");
@@ -72,9 +71,6 @@ public class CategoriesApiControllerTest {
 
     @Test
     void getQuizzesByCategoryIdReturnsEmptyListWhenCategoryDoesNotHaveQuizzes() throws Exception {
-        // save a category without quizzes to the database. The response should return
-        // an empty list
-
         Category category = new Category();
         category.setName("Test Category");
         category.setDescription("Test Description");
@@ -90,8 +86,6 @@ public class CategoriesApiControllerTest {
 
     @Test
     void getQuizzesByCategoryIdReturnsSizeOfQuizzesList() throws Exception {
-        // save 3 quizzes to a category. The response should return 3
-
         Category category = new Category();
         category.setName("Test Category");
         category.setDescription("Test Description");
@@ -126,9 +120,6 @@ public class CategoriesApiControllerTest {
 
     @Test
     void getQuizzesByCategoryIdWithOneUnpublishQuizReturnSizeOfQuizzedList() throws Exception {
-        // save 3 quizzes to a category, one quiz's publish is false. The response
-        // should return 2
-
         Category category = new Category();
         category.setName("Test Category");
         category.setDescription("Test Description");
@@ -160,5 +151,4 @@ public class CategoriesApiControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
     }
-
 }

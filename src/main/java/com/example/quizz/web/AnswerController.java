@@ -24,7 +24,6 @@ public class AnswerController {
     @Autowired
     private QuestionRepository questionRepository;
 
-    // Show all answers of a question
     @GetMapping("/question/{questionId}")
     public String showAnswers(@PathVariable Long questionId, Model model) {
         Question question = questionRepository.findById(questionId)
@@ -37,7 +36,6 @@ public class AnswerController {
         return "answers";
     }
 
-    // Show add answer form
     @GetMapping("/add/{questionId}")
     public String showAddAnswerForm(@PathVariable Long questionId, Model model) {
         Question question = questionRepository.findById(questionId)
@@ -49,7 +47,6 @@ public class AnswerController {
         return "addanswer";
     }
 
-    // Save new answer
     @PostMapping
     public String createAnswer(
             @RequestParam Long questionId,
@@ -68,7 +65,6 @@ public class AnswerController {
         return "redirect:/answers/question/" + questionId;
     }
 
-    // Delete answer by id
     @GetMapping("/delete/{questionId}/{answerId}")
     public String deleteAnswer(@PathVariable Long questionId, @PathVariable Long answerId, Model model) {
         answerRepository.deleteById(answerId);

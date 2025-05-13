@@ -10,7 +10,6 @@ export default function CategoryQuizzes() {
   const navigate = useNavigate();
   const { data: categoriesQuizzes } = useFetchData(
     import.meta.env.VITE_API_URL + `categories/${id}/quizzes`
-    // import.meta.env.VITE_API_URL_LOCAL + `categories/${id}/quizzes`
   );
 
   const colDefs = [
@@ -49,13 +48,10 @@ export default function CategoryQuizzes() {
       field: "createdDate",
       filter: "agTextColumnFilter",
       valueFormatter: (params) => {
-        // Format the date using Day.js
         return params.value ? dayjs(params.value).format("DD.MM.YYYY") : "";
       },
     },
   ];
-
-  console.log(categoriesQuizzes);
 
   return (
     <Box sx={{ padding: 3 }}>

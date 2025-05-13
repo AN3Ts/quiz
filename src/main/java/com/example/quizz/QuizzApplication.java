@@ -28,8 +28,7 @@ public class QuizzApplication {
     public CommandLineRunner loadData(QuizRepository quizRepository, QuestionRepository questionRepository,
             AnswerRepository answerRepository, CategoryRepository categoryRepository, ReviewRepository reviewRepository) {
         return (args) -> {
-            //quizRepository.deleteAll();
-            //categoryRepository.deleteAll();
+
             if (categoryRepository.count() == 0) {
 
                 Category cat1 = new Category();
@@ -64,12 +63,10 @@ public class QuizzApplication {
                     quiz3.setPublished(true);
                     quiz3.setCategory(cat1);
 
-                    // Save quizzes to the database
                     quizRepository.save(quiz1);
                     quizRepository.save(quiz2);
                     quizRepository.save(quiz3);
 
-                    // Add sample questions to quiz1
                     Question question1 = new Question();
                     question1.setQuestionText("What is the size of an int in Java?");
                     question1.setDifficulty(Difficulty.EASY);
@@ -85,7 +82,6 @@ public class QuizzApplication {
                     question3.setDifficulty(Difficulty.HARD);
                     question3.setQuiz(quiz1);
 
-                    // Add answers for question 1
                     Answer answer1 = new Answer();
                     answer1.setAnswerText("32 bits");
                     answer1.setQuestion(question1);
@@ -101,7 +97,6 @@ public class QuizzApplication {
                     answer3.setQuestion(question1);
                     answer3.setIsCorrect(false);
 
-                    // Add answers for question 2
                     Answer answer4 = new Answer();
                     answer4.setAnswerText("false");
                     answer4.setQuestion(question2);
@@ -117,7 +112,6 @@ public class QuizzApplication {
                     answer6.setQuestion(question2);
                     answer6.setIsCorrect(false);
 
-                    // Add answers for question 3
                     Answer answer7 = new Answer();
                     answer7.setAnswerText("The ability of an object to take many forms");
                     answer7.setQuestion(question3);
@@ -133,27 +127,22 @@ public class QuizzApplication {
                     answer9.setQuestion(question3);
                     answer9.setIsCorrect(false);
 
-                    // Save questions to the database
                     questionRepository.save(question1);
                     questionRepository.save(question2);
                     questionRepository.save(question3);
 
-                    // Save answers for question 1
                     answerRepository.save(answer1);
                     answerRepository.save(answer2);
                     answerRepository.save(answer3);
 
-                    // Save answers for question 2
                     answerRepository.save(answer4);
                     answerRepository.save(answer5);
                     answerRepository.save(answer6);
 
-                    // Save answers for question 3
                     answerRepository.save(answer7);
                     answerRepository.save(answer8);
                     answerRepository.save(answer9);
 
-                    // Add mock reviews for quiz1
                     Review review1 = new Review();
                     review1.setContent("Great quiz! Very informative.");
                     review1.setNickname("JohnDoe");
@@ -172,7 +161,6 @@ public class QuizzApplication {
                     review3.setRating(3);
                     review3.setQuiz(quiz1);
 
-                    // Save reviews to the database
                     reviewRepository.save(review1);
                     reviewRepository.save(review2);
                     reviewRepository.save(review3);
