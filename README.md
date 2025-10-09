@@ -15,20 +15,6 @@
 
 - [Sprint 1](https://edu.flinga.fi/s/EH4Y23J)
 - [Sprint 2](https://edu.flinga.fi/s/EY8K7BT)
-
-## Deployment
-
-The teachers' view is deployed and accessible at:  
-[Teacher Application](https://quiz-git-quiz.2.rahtiapp.fi/quizzes/showQuizzes)
-
-The students' view is deployed and accessible at:  
-[Student Application](https://quiz-zfde.onrender.com/)
-
-## API Documentation
-
-The Swagger UI for the API documentation is available at:  
-[Swagger UI](https://quiz-git-quiz.2.rahtiapp.fi/swagger-ui/index.html)
-
 ---
 
 ## Teacher Dashboard Features
